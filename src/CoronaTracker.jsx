@@ -4,6 +4,7 @@ import { setAllCases } from 'actions/cases';
 import { getAllCases } from 'selectors/cases';
 import { useActions } from 'reduxHooks/useActions';
 import { useShallowEqualSelector } from 'reduxHooks/useShallowEqualSelector';
+import Layout from 'components/Layout/Layout';
 
 const CoronaTracker = () => {
     const setAllCasesDispatch = useActions(setAllCases);
@@ -18,12 +19,10 @@ const CoronaTracker = () => {
         setAllCasesDispatch();
     }, []);
 
-    console.log(cases);
-
     return (
-        <View>
+        <Layout>
             <Text>Corona Tracker</Text>
-        </View>
+        </Layout>
     );
 };
 

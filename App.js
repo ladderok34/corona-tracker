@@ -3,7 +3,7 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Provider } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
-import CoronaTracker from './src/app/CoronaTracker';
+import CoronaTracker from './src/CoronaTracker';
 import configureStore from './src/redux/createReduxStore';
 
 const App = () => {

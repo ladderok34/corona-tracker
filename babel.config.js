@@ -10,6 +10,7 @@ module.exports = function(api) {
                     reducers: "./src/redux/reducers",
                     selectors: "./src/redux/selectors",
                     reduxHooks: "./src/redux/hooks",
+                    components: "./src/components",
                 },
             },
         ],
