@@ -1,29 +1,22 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { setAllCases } from 'actions/cases';
-import { getAllCases } from 'selectors/cases';
-import { useActions } from 'reduxHooks/useActions';
-import { useShallowEqualSelector } from 'reduxHooks/useShallowEqualSelector';
-import Layout from 'components/Layout/Layout';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import AllCases from 'components/AllCases/AllCases';
+import Country from 'components/Country/Country';
 
-const CoronaTracker = () => {
-    const setAllCasesDispatch = useActions(setAllCases);
+const Stack = createStackNavigator();
 
-    const {
-        cases,
-    } = useShallowEqualSelector(state => ({
-        cases: getAllCases(state),
-    }));
+const Covid = () => (
+    <NavigationContainer>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="All cases"
+                component={AllCases}
+                options={{ title: 'All cases' }}
+            />
+            <Stack.Screen name="Country" component={Country} />
+        </Stack.Navigator>
+    </NavigationContainer>
+);
 
-    useEffect(() => {
-        setAllCasesDispatch();
-    }, []);
-
-    return (
-        <Layout>
-            <Text>Corona Tracker</Text>
-        </Layout>
-    );
-};
-
-export default CoronaTracker;
+export default Covid;
