@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Content } from 'native-base';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, contentProps }) => (
     <Container>
-        <Content>
+        <Content {...contentProps}>
             {children}
         </Content>
     </Container>
@@ -12,6 +12,11 @@ const Layout = ({ children }) => (
 
 Layout.propTypes = {
     children: PropTypes.node.isRequired,
+    contentProps: PropTypes.object,
+};
+
+Layout.defaultProps = {
+    contentProps: {},
 };
 
 Layout.displayName = 'Layout';

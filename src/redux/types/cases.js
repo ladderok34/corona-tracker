@@ -1,1 +1,3 @@
-export const SET_ALL_CASES = 'SET_ALL_CASES';
+export const FETCH_SUMMARY = 'FETCH_SUMMARY';
+export const FETCH_SUMMARY_ERROR = 'FETCH_SUMMARY_ERROR';
+export const SHOW_SPINNER = 'SHOW_SPINNER';
