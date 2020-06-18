@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import CoronaTracker from './src/CoronaTracker';
+import { Provider } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
+import CoronaTracker from './src/app/CoronaTracker';
+import configureStore from './src/redux/createReduxStore';
 
 const App = () => {
     const [loading, setLoading] = useState(true);
@@ -20,7 +22,11 @@ const App = () => {
         loadFonts();
     }, []);
 
-    return <CoronaTracker />;
+    return (
+        <Provider store={configureStore()}>
+            <CoronaTracker />
+        </Provider>
+    );
 };
 
 export default App;
