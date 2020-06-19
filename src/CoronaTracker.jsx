@@ -18,6 +18,11 @@ const Covid = () => (
                     component={AllCases}
                     options={{ title: 'All cases' }}
                 />
+                <Stack.Screen
+                    name="Countries"
+                    component={AllCases}
+                    options={{ title: 'All cases' }}
+                />
                 <Stack.Screen name="Country" component={Country} />
             </Stack.Navigator>
         </NavigationContainer>

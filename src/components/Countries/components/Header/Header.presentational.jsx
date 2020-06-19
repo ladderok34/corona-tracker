@@ -11,7 +11,7 @@ import {
     Input,
 } from 'native-base';
 
-const LayoutHeaderPresentational = ({
+const HeaderPresentational = ({
     searchQuery,
     sortingOption,
     onSearchChange,
@@ -41,12 +41,12 @@ const LayoutHeaderPresentational = ({
     </Header>
 );
 
-LayoutHeaderPresentational.propTypes = {
+HeaderPresentational.propTypes = {
     searchQuery: PropTypes.string.isRequired,
     sortingOption: PropTypes.string.isRequired,
     onSearchChange: PropTypes.func.isRequired,
     onSortingChange: PropTypes.func.isRequired,
 };
 
-LayoutHeaderPresentational.displayName = 'LayoutHeaderPresentational';
-export default React.memo(LayoutHeaderPresentational);
+HeaderPresentational.displayName = 'HeaderPresentational';
+export default React.memo(HeaderPresentational);

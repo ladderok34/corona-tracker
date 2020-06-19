@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const FailedLoading = ({ fetchSummary }) => (
+const LoadingFailedView = ({ fetchSummary }) => (
     <>
         <Text style={styles.text}>
             Something went wrong
@@ -20,9 +20,9 @@ const FailedLoading = ({ fetchSummary }) => (
     </>
 );
 
-FailedLoading.propTypes = {
+LoadingFailedView.propTypes = {
     fetchSummary: PropTypes.func.isRequired,
 };
 
-FailedLoading.displayName = 'FailedLoading';
-export default React.memo(FailedLoading);
+LoadingFailedView.displayName = 'LoadingFailedView';
+export default React.memo(LoadingFailedView);

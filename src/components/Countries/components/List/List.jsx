@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    List,
+    List as NativeList,
     ListItem,
     Text,
     Left,
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const CountriesList = ({ countries, navigateToCountry }) => (
-    <List>
+const List = ({ countries, navigateToCountry }) => (
+    <NativeList>
         {countries.map((country) => (
             <ListItem
                 key={country.CountryCode}
@@ -50,13 +50,12 @@ const CountriesList = ({ countries, navigateToCountry }) => (
                 </Right>
             </ListItem>
         ))}
-    </List>
+    </NativeList>
 );
 
-
-CountriesList.propTypes = {
+List.propTypes = {
     countries: PropTypes.array.isRequired,
     navigateToCountry: PropTypes.func.isRequired,
 };
 
-export default React.memo(CountriesList);
+export default React.memo(List);

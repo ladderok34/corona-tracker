@@ -3,9 +3,9 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { setCountrySearchQuery, setCountrySortingOption } from 'actions/cases';
 import { getCountrySearchQuery, getCountrySortingOption } from 'selectors/cases';
 import { useActions } from 'reduxHooks/useActions';
-import LayoutHeaderPresentational from './LayoutHeader.presentational';
+import HeaderPresentational from './Header.presentational';
 
-const LayoutHeader = () => {
+const Header = () => {
     const {
         searchQuery,
         sortingOption,
@@ -27,7 +27,7 @@ const LayoutHeader = () => {
     }, [sortingOption]);
 
     return (
-        <LayoutHeaderPresentational
+        <HeaderPresentational
             searchQuery={searchQuery}
             sortingOption={sortingOption}
             onSearchChange={handleSearch}
@@ -36,5 +36,5 @@ const LayoutHeader = () => {
     );
 };
 
-LayoutHeader.displayName = 'LayoutHeader';
-export default React.memo(LayoutHeader);
+Header.displayName = 'Header';
+export default React.memo(Header);

@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
-import Layout from 'components/Layout/Layout';
+import { Container, Content, Text } from 'native-base';
 
 const Country = () => {
     return (
-        <Layout>
-            <Text>Country</Text>
-        </Layout>
+        <Container>
+            <Content>
+                <Text>Country</Text>
+            </Content>
+        </Container>
     );
 };
 
