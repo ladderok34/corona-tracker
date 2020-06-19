@@ -2,6 +2,8 @@ import {
     FETCH_SUMMARY,
     FETCH_SUMMARY_ERROR,
     SHOW_SPINNER,
+    SET_COUNTRY_SEARCH_QUERY,
+    SET_COUNTRY_SORTING_OPTION,
 } from '../types/cases';
 import api from 'api/api';
 
@@ -20,4 +22,18 @@ export const fetchSummary = () => dispatch => {
         })
         .catch(() => setFetchSummaryError(true)(dispatch))
         .finally(() => setShowSpinner(false)(dispatch));
+};
+
+export const setCountrySearchQuery = (value) => dispatch => {
+    dispatch({
+        type: SET_COUNTRY_SEARCH_QUERY,
+        payload: value,
+    });
+};
+
+export const setCountrySortingOption = (name) => dispatch => {
+    dispatch({
+        type: SET_COUNTRY_SORTING_OPTION,
+        payload: name,
+    });
 };

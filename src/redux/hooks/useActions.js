@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 export function useActions(actions, deps) {
     const dispatch = useDispatch();
 
+    console.log(actions);
+
     return useMemo(() => {
         if (Array.isArray(actions)) {
             return actions.map(a => bindActionCreators(a, dispatch));

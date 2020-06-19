@@ -2,6 +2,8 @@ import {
     FETCH_SUMMARY,
     FETCH_SUMMARY_ERROR,
     SHOW_SPINNER,
+    SET_COUNTRY_SEARCH_QUERY,
+    SET_COUNTRY_SORTING_OPTION,
 } from '../types/cases';
 
 export const initialState = {
@@ -9,6 +11,8 @@ export const initialState = {
     countries: [],
     summaryLoadFailed: false,
     showSpinner: false,
+    countrySearchQuery: '',
+    countrySortingOption: 'total',
 };
 
 const cases = (state = initialState, { type, payload }) => {
@@ -28,6 +32,16 @@ const cases = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 showSpinner: payload,
+            };
+        case SET_COUNTRY_SEARCH_QUERY:
+            return {
+                ...state,
+                countrySearchQuery: payload,
+            };
+        case SET_COUNTRY_SORTING_OPTION:
+            return {
+                ...state,
+                countrySortingOption: payload,
             };
         default:
             return state;
