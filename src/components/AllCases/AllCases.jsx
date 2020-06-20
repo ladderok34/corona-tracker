@@ -34,8 +34,6 @@ const AllCases = () => {
         navigation.dispatch(DrawerActions.openDrawer());
     }, []);
 
-    console.log(totalCases);
-
     return (
         <Container>
             <Header openDrawer={openDrawer} />
@@ -44,8 +42,8 @@ const AllCases = () => {
             >
                 {showSpinner && <ActivityIndicator size="large" />}
                 {summaryLoadFailed && <LoadingFailedView fetchSummary={fetchSummaryDispatch} />}
-                {totalCases.length > 0 && (
-                    <Content cases={totalCases} />
+                {Object.keys(totalCases).length > 0 && (
+                    <List cases={totalCases} />
                 )}
             </Content>
         </Container>
