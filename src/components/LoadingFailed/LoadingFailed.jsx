@@ -9,20 +9,20 @@ const styles = StyleSheet.create({
     },
 });
 
-const LoadingFailedView = ({ fetchSummary }) => (
+const LoadingFailed = ({ refetch }) => (
     <>
         <Text style={styles.text}>
             Something went wrong
         </Text>
-        <Button onPress={fetchSummary}>
+        <Button onPress={refetch}>
             <Text>Try again</Text>
         </Button>
     </>
 );
 
-LoadingFailedView.propTypes = {
-    fetchSummary: PropTypes.func.isRequired,
+LoadingFailed.propTypes = {
+    refetch: PropTypes.func.isRequired,
 };
 
-LoadingFailedView.displayName = 'LoadingFailedView';
-export default React.memo(LoadingFailedView);
+LoadingFailed.displayName = 'LoadingFailed';
+export default React.memo(LoadingFailed);

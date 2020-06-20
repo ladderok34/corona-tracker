@@ -9,7 +9,6 @@ import {
     Icon,
     Content,
     Badge,
-    Header,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'

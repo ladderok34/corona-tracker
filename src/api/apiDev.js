@@ -262,11 +262,106 @@ const countriesList = [
     },
 ];
 
+const country = [
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12393,
+        "Deaths": 597,
+        "Recovered": 11268,
+        "Active": 528,
+        "Date": "2020-06-14T00:00:00Z"
+    },
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12417,
+        "Deaths": 598,
+        "Recovered": 11290,
+        "Active": 529,
+        "Date": "2020-06-15T00:00:00Z"
+    },
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12450,
+        "Deaths": 598,
+        "Recovered": 11325,
+        "Active": 527,
+        "Date": "2020-06-16T00:00:00Z"
+    },
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12494,
+        "Deaths": 598,
+        "Recovered": 11385,
+        "Active": 511,
+        "Date": "2020-06-17T00:00:00Z"
+    },
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12544,
+        "Deaths": 600,
+        "Recovered": 11442,
+        "Active": 502,
+        "Date": "2020-06-18T00:00:00Z"
+    },
+    {
+        "Country": "Denmark",
+        "CountryCode": "",
+        "Province": "",
+        "City": "",
+        "CityCode": "",
+        "Lat": "0",
+        "Lon": "0",
+        "Confirmed": 12591,
+        "Deaths": 600,
+        "Recovered": 11482,
+        "Active": 509,
+        "Date": "2020-06-19T00:00:00Z"
+    },
+];
+
 const timeout = 700;
 
 export const getSummary = () => new Promise((resolve) => {
     setTimeout(() => {
         const data = { data: { Global: summary, Countries: countriesList } };
+
+        resolve(data);
+    }, timeout);
+});
+
+export const getCountry = () => new Promise((resolve) => {
+    setTimeout(() => {
+        const data = { data: country };
 
         resolve(data);
     }, timeout);

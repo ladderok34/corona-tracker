@@ -8,7 +8,7 @@ import { fetchSummary } from 'actions/cases';
 import { useActions } from 'reduxHooks/useActions';
 import Header from './components/Header/Header';
 import List from './components/List/List';
-import LoadingFailedView from './components/LoadingFailedView/LoadingFailedView';
+import LoadingFailed from 'components/LoadingFailed/LoadingFailed';
 
 const contentContainerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' };
 
@@ -45,7 +45,7 @@ const AllCases = () => {
                 contentContainerStyle={(summaryLoadFailed || showSpinner) ? contentContainerStyle : {}}
             >
                 {showSpinner && <ActivityIndicator size="large" />}
-                {summaryLoadFailed && <LoadingFailedView fetchSummary={fetchSummaryDispatch} />}
+                {summaryLoadFailed && <LoadingFailed refetch={fetchSummaryDispatch} />}
                 {Object.keys(totalCases).length > 0 && (
                     <List
                         cases={totalCases}
