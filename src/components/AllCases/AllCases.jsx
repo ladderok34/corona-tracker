@@ -34,6 +34,10 @@ const AllCases = () => {
         navigation.dispatch(DrawerActions.openDrawer());
     }, []);
 
+    const navigateToCase = useCallback((name) => {
+        navigation.navigate('Case', { name });
+    }, []);
+
     return (
         <Container>
             <Header openDrawer={openDrawer} />
@@ -43,7 +47,10 @@ const AllCases = () => {
                 {showSpinner && <ActivityIndicator size="large" />}
                 {summaryLoadFailed && <LoadingFailedView fetchSummary={fetchSummaryDispatch} />}
                 {Object.keys(totalCases).length > 0 && (
-                    <List cases={totalCases} />
+                    <List
+                        cases={totalCases}
+                        navigateToCase={navigateToCase}
+                    />
                 )}
             </Content>
         </Container>

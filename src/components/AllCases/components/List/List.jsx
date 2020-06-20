@@ -11,6 +11,7 @@ import {
     Badge,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
     listItem: {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const List = ({ cases }) => (
+const List = ({ cases, navigateToCase }) => (
     <NativeBaseList>
         <ListItem thumbnail style={styles.listItem}>
             <Left>
@@ -34,7 +35,10 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>Total confirmed cases</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('total'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
@@ -50,7 +54,10 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>Total confirmed deaths</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('deaths'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
@@ -66,7 +73,10 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>Total recovered</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('recovered'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
@@ -82,7 +92,10 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>New confirmed cases</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('new-confirmed'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
@@ -98,7 +111,10 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>New confirmed deaths</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('new-deaths'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
@@ -114,13 +130,21 @@ const List = ({ cases }) => (
                 <Text note numberOfLines={1}>New NewRecovered</Text>
             </Body>
             <Right>
-                <Button transparent>
+                <Button
+                    transparent
+                    onPress={() => { navigateToCase('new-recovered'); }}
+                >
                     <Text>View</Text>
                 </Button>
             </Right>
         </ListItem>
     </NativeBaseList>
 );
+
+List.propTypes = {
+    cases: PropTypes.object.isRequired,
+    navigateToCase: PropTypes.func.isRequired,
+};
 
 List.displayName = 'List';
 export default React.memo(List);
