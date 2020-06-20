@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { setCountrySearchQuery, setCountrySortingOption } from 'actions/cases';
-import { getCountrySearchQuery, getCountrySortingOption } from 'selectors/cases';
+import { setSearchQuery, setSortingOption } from 'actions/countriesOptions';
+import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
 import { useActions } from 'reduxHooks/useActions';
 import HeaderPresentational from './Header.presentational';
 
@@ -10,20 +10,17 @@ const Header = () => {
         searchQuery,
         sortingOption,
     } = useSelector(state => ({
-        searchQuery: getCountrySearchQuery(state),
-        sortingOption: getCountrySortingOption(state),
+        searchQuery: getSearchQuery(state),
+        sortingOption: getSortingOption(state),
     }), shallowEqual);
-    const [
-        setCountrySearchQueryDispatch,
-        setCountrySortingOptionDispatch,
-    ] = useActions([setCountrySearchQuery, setCountrySortingOption]);
+    const [setSearchQueryDispatch, setSortingOptionDispatch] = useActions([setSearchQuery, setSortingOption]);
 
     const handleSearch = useCallback((event) => {
-        setCountrySearchQueryDispatch(event.nativeEvent.text);
+        setSearchQueryDispatch(event.nativeEvent.text);
     }, [searchQuery]);
 
     const handleSorting = useCallback((option) => {
-        setCountrySortingOptionDispatch(option);
+        setSortingOptionDispatch(option);
     }, [sortingOption]);
 
     return (
