@@ -1,33 +1,56 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
-import {
-    Container,
-    Header,
-    Title,
-    Button,
-    Left,
-    Right,
-    Body,
-    Icon,
-} from 'native-base';
+import { ActivityIndicator } from 'react-native';
+import { Container, Content } from 'native-base';
+import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
+import { fetchSummary } from 'actions/cases';
+import { useActions } from 'reduxHooks/useActions';
+import Header from './components/Header/Header';
+import List from './components/List/List';
+import LoadingFailedView from './components/LoadingFailedView/LoadingFailedView';
+
+const contentContainerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' };
 
 const AllCases = () => {
     const navigation = useNavigation();
+    const fetchSummaryDispatch = useActions(fetchSummary);
+
+    const {
+        summaryLoadFailed,
+        showSpinner,
+        totalCases,
+    } = useSelector(state => ({
+        summaryLoadFailed: getSummaryLoadFailed(state),
+        showSpinner: getShowSpinner(state),
+        totalCases: getTotalCases(state),
+    }), shallowEqual);
+
+    useEffect(() => {
+        fetchSummaryDispatch();
+    }, []);
+
+    const openDrawer = useCallback(() => {
+        navigation.dispatch(DrawerActions.openDrawer());
+    }, []);
+
+    console.log(totalCases);
+
     return (
         <Container>
-            <Header>
-                <Left>
-                    <Button transparent onPress={() => { navigation.dispatch(DrawerActions.openDrawer()); }}>
-                        <Icon name='menu' />
-                    </Button>
-                </Left>
-                <Body>
-                    <Title>All Cases</Title>
-                </Body>
-                <Right />
-            </Header>
+            <Header openDrawer={openDrawer} />
+            <Content
+                contentContainerStyle={(summaryLoadFailed || showSpinner) ? contentContainerStyle : {}}
+            >
+                {showSpinner && <ActivityIndicator size="large" />}
+                {summaryLoadFailed && <LoadingFailedView fetchSummary={fetchSummaryDispatch} />}
+                {totalCases.length > 0 && (
+                    <Content cases={totalCases} />
+                )}
+            </Content>
         </Container>
     );
 };
 
-export default AllCases;
+AllCases.displayName = 'AllCases';
+export default React.memo(AllCases);

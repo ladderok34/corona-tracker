@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Header,
     Text,
-    Left,
-    Right,
+    Body,
     Picker,
     Icon,
     Item,
