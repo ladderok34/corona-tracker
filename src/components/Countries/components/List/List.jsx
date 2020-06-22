@@ -1,55 +1,80 @@
 import React from 'react';
+import { FlatList, View, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types';
 import {
-    List as NativeList,
-    ListItem,
     Text,
-    Left,
-    Right,
     Icon,
-    Content,
     Badge,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
 const styles = StyleSheet.create({
+    view: {
+        backgroundColor: 'white',
+        marginBottom: 120,
+    },
     badge: {
         marginBottom: 10,
     },
+    item: {
+        flexDirection: 'row',
+        borderColor: '#ccc',
+        borderBottomWidth: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal: 10,
+        paddingVertical: 10,
+    },
+    lastChild: {
+        borderBottomWidth: 0,
+    },
+    text: {
+        flexDirection: 'row',
+        width: '30%',
+    },
 });
 
-const List = ({ countries, navigateToCountry }) => (
-    <NativeList>
-        {countries.map((country) => (
-            <ListItem
-                key={country.CountryCode}
-                onPress={() => { navigateToCountry(country.CountryCode); }}
+const List = ({ countries, navigateToCountry, handleEndOnReached }) => (
+    <FlatList
+        style={styles.view}
+        data={countries}
+        keyExtractor={item => item.CountryCode}
+        onEndReached={handleEndOnReached}
+        onEndReachedThreshold={0.5}
+        renderItem={({ index, item }) => (
+            <TouchableOpacity
+                onPress={() => { navigateToCountry(item.CountryCode); }}
+                style={{
+                    ...styles.item,
+                    ...(index === countries.length - 1 ? styles.lastChild : {}),
+                }}
+                activeOpacity={1}
             >
-                <Left>
-                    <Text>{getUnicodeFlagIcon(country.CountryCode)}</Text>
-                    <Text>{country.Country}</Text>
-                </Left>
-                <Content>
+                <View style={styles.text}>
+                    <Text>{getUnicodeFlagIcon(item.CountryCode)}</Text>
+                    <Text>{item.Country}</Text>
+                </View>
+                <View>
                     <Badge warning style={styles.badge}>
-                        <Text>{country.TotalConfirmed} Total</Text>
+                        <Text>{item.TotalConfirmed} Total</Text>
                     </Badge>
                     <Badge style={styles.badge}>
-                        <Text>{country.TotalDeaths} Death</Text>
+                        <Text>{item.TotalDeaths} Death</Text>
                     </Badge>
                     <Badge success style={styles.badge}>
-                        <Text>{country.TotalRecovered} Recovered</Text>
+                        <Text>{item.TotalRecovered} Recovered</Text>
                     </Badge>
                     <Badge info>
-                        <Text>{country.TotalConfirmed - (country.TotalRecovered + country.TotalDeaths)} Remaining</Text>
+                        <Text>{item.TotalConfirmed - (item.TotalRecovered + item.TotalDeaths)} Remaining</Text>
                     </Badge>
-                </Content>
-                <Right>
+                </View>
+                <View>
                     <Icon name="arrow-forward" />
-                </Right>
-            </ListItem>
-        ))}
-    </NativeList>
+                </View>
+            </TouchableOpacity>
+        )}
+    />
 );
 
 List.propTypes = {

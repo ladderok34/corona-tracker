@@ -8,6 +8,7 @@ import {
     Icon,
     Item,
     Input,
+    Container,
 } from 'native-base';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 
