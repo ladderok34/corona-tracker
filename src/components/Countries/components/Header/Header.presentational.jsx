@@ -9,6 +9,7 @@ import {
     Item,
     Input,
 } from 'native-base';
+import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 
 const HeaderPresentational = ({
     searchQuery,
@@ -16,32 +17,35 @@ const HeaderPresentational = ({
     onSearchChange,
     onSortingChange,
 }) => (
-    <Header searchBar rounded>
-        <Picker
-            mode="dropdown"
-            onValueChange={onSortingChange}
-            iosHeader="Order by"
-            iosIcon={<Icon name="arrow-down" />}
-            selectedValue={sortingOption}
-        >
-            <Picker.Item label="Total Top" value="total desc" />
-            <Picker.Item label="Total Low" value="total asc" />
-            <Picker.Item label="Deaths Top" value="deaths desc" />
-            <Picker.Item label="Deaths Low" value="deaths asc" />
-            <Picker.Item label="Recoveries Top" value="recoveries desc" />
-            <Picker.Item label="Recoveries Low" value="recoveries asc" />
-            <Picker.Item label="Remaining cases Top" value="remaining desc" />
-            <Picker.Item label="Remaining cases Low" value="remaining asc" />
-        </Picker>
-        <Item>
-            <Icon name="ios-search" />
-            <Input
-                placeholder="Search"
-                value={searchQuery}
-                onChange={onSearchChange}
-            />
-        </Item>
-    </Header>
+    <>
+        <DefaultHeader title="Countries" />
+        <Header searchBar rounded>
+            <Picker
+                mode="dropdown"
+                onValueChange={onSortingChange}
+                iosHeader="Order by"
+                iosIcon={<Icon name="arrow-down" />}
+                selectedValue={sortingOption}
+            >
+                <Picker.Item label="Total Top" value="total desc" />
+                <Picker.Item label="Total Low" value="total asc" />
+                <Picker.Item label="Deaths Top" value="deaths desc" />
+                <Picker.Item label="Deaths Low" value="deaths asc" />
+                <Picker.Item label="Recoveries Top" value="recoveries desc" />
+                <Picker.Item label="Recoveries Low" value="recoveries asc" />
+                <Picker.Item label="Remaining cases Top" value="remaining desc" />
+                <Picker.Item label="Remaining cases Low" value="remaining asc" />
+            </Picker>
+            <Item>
+                <Icon name="ios-search" />
+                <Input
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={onSearchChange}
+                />
+            </Item>
+        </Header>
+    </>
 );
 
 HeaderPresentational.propTypes = {

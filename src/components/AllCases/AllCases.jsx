@@ -1,10 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
 import { fetchSummary } from 'actions/cases';
 import { useActions } from 'reduxHooks/useActions';
-import Header from './components/Header/Header';
+import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 import List from './components/List/List';
 import Container from 'components/Container/Container';
 
@@ -26,10 +26,6 @@ const AllCases = () => {
         fetchSummaryDispatch();
     }, []);
 
-    const openDrawer = useCallback(() => {
-        navigation.dispatch(DrawerActions.openDrawer());
-    }, []);
-
     const navigateToCase = useCallback((name) => {
         navigation.navigate('Case', { name });
     }, []);
@@ -39,7 +35,7 @@ const AllCases = () => {
             showSpinner={showSpinner}
             failedLoading={summaryLoadFailed}
             refetch={fetchSummaryDispatch}
-            header={<Header openDrawer={openDrawer} />}
+            header={<DefaultHeader title="All cases" />}
         >
             {Object.keys(totalCases).length > 0 && (
                 <List

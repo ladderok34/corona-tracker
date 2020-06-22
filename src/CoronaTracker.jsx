@@ -15,7 +15,11 @@ const store = configureStore();
 
 const CountriesNavigation = () => (
     <Stack.Navigator>
-        <Stack.Screen name="Countries" component={Countries} />
+        <Stack.Screen
+            name="Countries"
+            component={Countries}
+            options={{ headerShown: false }}
+        />
         <Stack.Screen name="Country" component={Country} />
     </Stack.Navigator>
 );
@@ -25,9 +29,7 @@ const AllCasesNavigation = () => (
         <Stack.Screen
             name="All Cases"
             component={AllCases}
-            options={{
-                headerShown: false,
-            }}
+            options={{ headerShown: false }}
         />
         <Stack.Screen
             name="Case"
@@ -55,7 +57,6 @@ const Covid = () => (
                 <Drawer.Screen
                     name="Countries"
                     component={CountriesNavigation}
-                    options={{ title: 'Countries' }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
