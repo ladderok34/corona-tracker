@@ -10,16 +10,19 @@ export const findCountriesByName = (query, countries) => {
     return list;
 };
 
-export const sortCountries = (countries, sortingOption) => countries.sort((a, b) => {
+export const sortCountries = (countries, sorting) => countries.sort((a, b) => {
+    const [sortingOption, direction] = sorting.split(' ');
+
     if (sortingOption === 'total') {
-        return b.TotalConfirmed - a.TotalConfirmed;
+        return direction === 'desc' ? b.TotalConfirmed - a.TotalConfirmed : a.TotalConfirmed - b.TotalConfirmed;
     }
 
     if (sortingOption === 'deaths') {
-        return b.TotalDeaths - a.TotalDeaths;
+        return direction === 'desc' ? b.TotalDeaths - a.TotalDeaths : a.TotalDeaths - b.TotalDeaths;
     }
 
     if (sortingOption === 'recoveries') {
+        return direction === 'desc' ? b.TotalRecovered - a.TotalRecovered : a.TotalRecovered - b.TotalRecovered;
         return b.TotalRecovered - a.TotalRecovered;
     }
 
@@ -27,6 +30,6 @@ export const sortCountries = (countries, sortingOption) => countries.sort((a, b)
         const aRemaining = a.TotalConfirmed - a.TotalRecovered - a.TotalDeaths;
         const bRemaining = b.TotalConfirmed - b.TotalRecovered - b.TotalDeaths;
 
-        return bRemaining - aRemaining;
+        return sorting === 'desc' ? bRemaining - aRemaining : aRemaining - bRemaining;
     }
 });

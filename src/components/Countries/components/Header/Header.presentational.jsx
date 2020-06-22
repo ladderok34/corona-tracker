@@ -24,10 +24,14 @@ const HeaderPresentational = ({
             iosIcon={<Icon name="arrow-down" />}
             selectedValue={sortingOption}
         >
-            <Picker.Item label="Total" value="total" />
-            <Picker.Item label="Deaths" value="deaths" />
-            <Picker.Item label="Recoveries" value="recoveries" />
-            <Picker.Item label="Remaining cases" value="remaining" />
+            <Picker.Item label="Total Top" value="total desc" />
+            <Picker.Item label="Total Low" value="total asc" />
+            <Picker.Item label="Deaths Top" value="deaths desc" />
+            <Picker.Item label="Deaths Low" value="deaths asc" />
+            <Picker.Item label="Recoveries Top" value="recoveries desc" />
+            <Picker.Item label="Recoveries Low" value="recoveries asc" />
+            <Picker.Item label="Remaining cases Top" value="remaining desc" />
+            <Picker.Item label="Remaining cases Low" value="remaining asc" />
         </Picker>
         <Item>
             <Icon name="ios-search" />

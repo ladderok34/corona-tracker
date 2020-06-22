@@ -5,7 +5,7 @@ import {
 
 export const initialState = {
     searchQuery: '',
-    sortingOption: 'total',
+    sortingOption: 'total desc',
 };
 
 const countriesOptions = (state = initialState, { type, payload }) => {
