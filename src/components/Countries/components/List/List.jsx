@@ -44,7 +44,7 @@ const List = ({ countries, navigateToCountry, handleEndOnReached }) => (
         onEndReachedThreshold={0.5}
         renderItem={({ index, item }) => (
             <TouchableOpacity
-                onPress={() => { navigateToCountry(item.CountryCode); }}
+                onPress={() => { navigateToCountry(item.Country, item.CountryCode); }}
                 style={{
                     ...styles.item,
                     ...(index === countries.length - 1 ? styles.lastChild : {}),

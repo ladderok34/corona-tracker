@@ -7,6 +7,7 @@ import AllCases from 'components/AllCases/AllCases';
 import Case from 'components/Case/Case';
 import Countries from 'components/Countries/Countries';
 import Country from 'components/Country/Country';
+import Favorites from 'components/Favorites/Favorites';
 import configureStore from './redux/createReduxStore';
 
 const Stack = createStackNavigator();
@@ -45,6 +46,23 @@ const AllCasesNavigation = () => (
     </Stack.Navigator>
 );
 
+const FavoritesNavigation = () => (
+    <Stack.Navigator>
+        <Stack.Screen
+            name="Favorites"
+            component={Favorites}
+            options={{ headerShown: false }}
+        />
+        <Stack.Screen
+            name="Country"
+            component={Country}
+            options={{
+
+            }}
+        />
+    </Stack.Navigator>
+);
+
 const Covid = () => (
     <Provider store={store}>
         <NavigationContainer>
@@ -57,6 +75,10 @@ const Covid = () => (
                 <Drawer.Screen
                     name="Countries"
                     component={CountriesNavigation}
+                />
+                <Drawer.Screen
+                    name="Favorites"
+                    component={FavoritesNavigation}
                 />
             </Drawer.Navigator>
         </NavigationContainer>

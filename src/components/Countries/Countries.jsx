@@ -79,10 +79,8 @@ const Countries = () => {
         }
     }, [currentScrollChunk, maxAmountOfChunks]);
 
-    const navigateToCountry = useCallback((code) => {
-        navigation.navigate('Country', {
-            countryCode: code,
-        });
+    const navigateToCountry = useCallback((name, code) => {
+        navigation.navigate('Country', { name, code });
     }, []);
 
     return (

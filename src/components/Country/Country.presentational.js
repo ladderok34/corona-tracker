@@ -12,6 +12,7 @@ import {
     Content,
     Badge,
     View,
+    Button,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
@@ -20,7 +21,12 @@ const styles = StyleSheet.create({
     view: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 15,
+        marginHorizontal: 15,
+        justifyContent: 'space-between',
+    },
+    viewTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     countryIcon: {
         fontSize: 50,
@@ -30,6 +36,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    inFavorites: {
+        color: '#f0ad4e',
+    },
+    notInFavorites: {
+        color: '#ccc',
+    },
     listItem: {
         marginVertical: 10,
     },
@@ -38,18 +50,36 @@ const styles = StyleSheet.create({
     },
 });
 
-const CountryPresentational = ({ data, countryCode }) => {
+const CountryPresentational = ({
+    data,
+    code,
+    inFavorites,
+    favoritesOnPress,
+}) => {
     const recentData = data[data.length - 1];
 
     return (
         <>
             <View style={styles.view}>
-                <Text style={styles.countryIcon}>
-                    {getUnicodeFlagIcon(countryCode)}
-                </Text>
-                <Text style={styles.title}>
-                    {recentData.Country}
-                </Text>
+                <View style={styles.viewTitle}>
+                    <Text style={styles.countryIcon}>
+                        {getUnicodeFlagIcon(code)}
+                    </Text>
+                    <Text style={styles.title}>
+                        {recentData.Country}
+                    </Text>
+                </View>
+                <View>
+                    <Button
+                        transparent
+                        onPress={favoritesOnPress}
+                    >
+                        <Icon
+                            name="star"
+                            style={inFavorites ? styles.inFavorites : styles.notInFavorites}
+                        />
+                    </Button>
+                </View>
             </View>
             <List>
                 <ListItem thumbnail style={styles.listItem}>
@@ -107,7 +137,13 @@ const CountryPresentational = ({ data, countryCode }) => {
 
 CountryPresentational.propTypes = {
     data: PropTypes.array.isRequired,
-    countryCode: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired,
+    inFavorites: PropTypes.bool,
+    favoritesOnPress: PropTypes.func.isRequired,
+};
+
+CountryPresentational.defaultProps = {
+    inFavorites: false,
 };
 
 export default React.memo(CountryPresentational);

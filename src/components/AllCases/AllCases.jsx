@@ -3,6 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
 import { fetchSummary } from 'actions/cases';
+import { fetchFavoritesCountryNames } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 import List from './components/List/List';
@@ -10,7 +11,13 @@ import Container from 'components/Container/Container';
 
 const AllCases = () => {
     const navigation = useNavigation();
-    const fetchSummaryDispatch = useActions(fetchSummary);
+    const [
+        fetchSummaryDispatch,
+        fetchFavoritesCountryNamesDispatch,
+    ] = useActions([
+        fetchSummary,
+        fetchFavoritesCountryNames,
+    ]);
 
     const {
         summaryLoadFailed,
@@ -24,6 +31,7 @@ const AllCases = () => {
 
     useEffect(() => {
         fetchSummaryDispatch();
+        fetchFavoritesCountryNamesDispatch();
     }, []);
 
     const navigateToCase = useCallback((name) => {
