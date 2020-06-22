@@ -1,6 +1,7 @@
 import {
     SET_SEARCH_QUERY,
     SET_SORTING_OPTION,
+    RESET_SEARCH,
 } from '../types/countriesOptions';
 
 export const initialState = {
@@ -14,6 +15,11 @@ const countriesOptions = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 searchQuery: payload,
+            };
+        case RESET_SEARCH:
+            return {
+                ...state,
+                searchQuery: initialState.searchQuery,
             };
         case SET_SORTING_OPTION:
             return {

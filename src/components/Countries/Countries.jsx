@@ -3,14 +3,18 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
 import { getCountriesCases } from 'selectors/cases';
+import { useActions } from 'reduxHooks/useActions';
+import { resetSearch } from 'actions/countriesOptions';
 import List from './components/List/List';
 import { findCountriesByName, sortCountries } from './Countries.utils';
 import Header from './components/Header/Header';
 import Container from 'components/Container/Container';
+import NoResults from './components/NoResults/NoResults';
 
 const Countries = () => {
     const navigation = useNavigation();
     const [sortedCountries, setSortedCountries] = useState([]);
+    const resetSearchDispatch = useActions(resetSearch);
 
     const {
         countries,
@@ -45,6 +49,12 @@ const Countries = () => {
 
     return (
         <Container header={<Header />}>
+            {searchQuery.length > 0 && !sortedCountries.length && (
+                <NoResults
+                    searchQuery={searchQuery}
+                    resetSearch={resetSearchDispatch}
+                />
+            )}
             {sortedCountries.length > 0 && (
                 <List
                     countries={sortedCountries}
