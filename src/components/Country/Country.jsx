@@ -4,12 +4,8 @@ import { getShowSpinner, getCountry, getFailedLoading } from 'selectors/country'
 import { fetchCountryInfo, unsetCountryInfo } from 'actions/country';
 import { useActions } from 'reduxHooks/useActions';
 import { useRoute } from '@react-navigation/native';
-import { Container, Content } from 'native-base';
-import { ActivityIndicator } from 'react-native';
-import LoadingFailed from 'components/LoadingFailed/LoadingFailed';
 import CountryPresentational from './Country.presentational';
-
-const contentContainerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' };
+import Container from '../Container/Container';
 
 const Country = () => {
     const route = useRoute();
@@ -34,19 +30,17 @@ const Country = () => {
     }, []);
 
     return (
-        <Container>
-            <Content
-                contentContainerStyle={(failedLoading || showSpinner) ? contentContainerStyle : {}}
-            >
-                {failedLoading && <LoadingFailed refetch={fetchSummaryDispatch(countryCode)} />}
-                {showSpinner && <ActivityIndicator size="large" />}
-                {data.length > 0 && (
-                    <CountryPresentational data={data} countryCode={countryCode} />
-                )}
-            </Content>
+        <Container
+            showSpinner={showSpinner}
+            failedLoading={failedLoading}
+            refetch={() => { fetchCountryInfoDispatch(countryCode); }}
+        >
+            {data.length > 0 && (
+                <CountryPresentational data={data} countryCode={countryCode} />
+            )}
         </Container>
     );
 };
 
 Country.displayName = "Country";
-export default React.memo(Country);
+export default Country;

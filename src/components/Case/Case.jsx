@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
-import { Container, Content, Text } from 'native-base';
+import { Text } from 'native-base';
+import Container from 'components/Container/Container';
 
 const Case = () => {
     const route = useRoute();
@@ -8,12 +9,10 @@ const Case = () => {
 
     return (
         <Container>
-            <Content>
-                <Text>Current case: {name}</Text>
-            </Content>
+            <Text>Current case: {name}</Text>
         </Container>
     );
 };
 
 Case.displayName = 'Case';
-export default React.memo(Case);
+export default Case;

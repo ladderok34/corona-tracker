@@ -1,16 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native';
-import { Container, Content } from 'native-base';
 import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
 import { fetchSummary } from 'actions/cases';
 import { useActions } from 'reduxHooks/useActions';
 import Header from './components/Header/Header';
 import List from './components/List/List';
-import LoadingFailed from 'components/LoadingFailed/LoadingFailed';
-
-const contentContainerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' };
+import Container from 'components/Container/Container';
 
 const AllCases = () => {
     const navigation = useNavigation();
@@ -39,23 +35,21 @@ const AllCases = () => {
     }, []);
 
     return (
-        <Container>
-            <Header openDrawer={openDrawer} />
-            <Content
-                contentContainerStyle={(summaryLoadFailed || showSpinner) ? contentContainerStyle : {}}
-            >
-                {showSpinner && <ActivityIndicator size="large" />}
-                {summaryLoadFailed && <LoadingFailed refetch={fetchSummaryDispatch} />}
-                {Object.keys(totalCases).length > 0 && (
-                    <List
-                        cases={totalCases}
-                        navigateToCase={navigateToCase}
-                    />
-                )}
-            </Content>
+        <Container
+            showSpinner={showSpinner}
+            failedLoading={summaryLoadFailed}
+            refetch={fetchSummaryDispatch}
+            header={<Header openDrawer={openDrawer} />}
+        >
+            {Object.keys(totalCases).length > 0 && (
+                <List
+                    cases={totalCases}
+                    navigateToCase={navigateToCase}
+                />
+            )}
         </Container>
     );
 };
 
 AllCases.displayName = 'AllCases';
-export default React.memo(AllCases);
+export default AllCases;

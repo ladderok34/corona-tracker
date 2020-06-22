@@ -2,7 +2,6 @@ import React from 'react';
 import {
     List as NativeBaseList,
     ListItem,
-    Thumbnail,
     Text,
     Left,
     Body,
