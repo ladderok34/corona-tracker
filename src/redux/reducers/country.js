@@ -1,31 +1,31 @@
 import {
-    FETCH_COUNTRY,
-    SHOW_SPINNER,
-    FETCH_ERROR,
+    SET_COUNTRY,
+    SET_COUNTRY_LOADED,
+    SET_COUNTRY_ERROR,
 } from '../types/country';
 
 export const initialState = {
     data: {},
-    showSpinner: false,
-    failedLoading: false,
+    isLoaded: false,
+    isError: false,
 };
 
 const country = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_COUNTRY:
+        case SET_COUNTRY:
             return {
                 ...state,
                 data: payload,
             };
-        case SHOW_SPINNER:
+        case SET_COUNTRY_LOADED:
             return {
                 ...state,
-                showSpinner: payload,
+                isLoaded: payload,
             };
-        case FETCH_ERROR:
+        case SET_COUNTRY_ERROR:
             return {
                 ...state,
-                failedLoading: payload,
+                isError: payload,
             };
         default:
             return state;

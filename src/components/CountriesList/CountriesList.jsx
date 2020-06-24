@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import { Text, Icon, Badge } from 'native-base';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-import LoadingFailed from './components/LoadingFailed/LoadingFailed';
 
 const styles = StyleSheet.create({
     view: {
         backgroundColor: 'white',
-        marginBottom: 120,
+        marginBottom: 140,
     },
     badge: {
         marginBottom: 10,
@@ -33,7 +32,10 @@ const styles = StyleSheet.create({
     },
     text: {
         flexDirection: 'row',
-        width: '30%',
+        width: '45%',
+    },
+    arrow: {
+        color: '#62B1F6',
     },
 });
 
@@ -77,9 +79,10 @@ const CountriesList = ({
                         <Text>{item.confirmed - (item.recovered + item.deaths)} Remaining</Text>
                     </Badge>
                 </View>
-                <View>
-                    <Icon name="arrow-forward" />
-                </View>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </TouchableOpacity>
         )}
     />

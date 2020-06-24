@@ -6,24 +6,28 @@ import {
     Left,
     Body,
     Right,
-    Button,
     Badge,
+    Icon,
 } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
-    listItem: {
-        marginVertical: 10,
-    },
     badge: {
         width: 80,
+    },
+    arrow: {
+        color: '#62B1F6',
     },
 });
 
 const List = ({ cases, navigateToCase }) => (
     <NativeBaseList>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('total'); }}
+        >
             <Left>
                 <Badge style={styles.badge} info>
                     <Text>{cases.TotalConfirmed}</Text>
@@ -34,15 +38,17 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>Total confirmed cases</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('total'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('deaths'); }}
+        >
             <Left>
                 <Badge style={styles.badge} error>
                     <Text>{cases.TotalDeaths}</Text>
@@ -53,15 +59,17 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>Total confirmed deaths</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('deaths'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('recovered'); }}
+        >
             <Left>
                 <Badge style={styles.badge} success>
                     <Text>{cases.TotalRecovered}</Text>
@@ -72,15 +80,17 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>Total recovered</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('recovered'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('new-confirmed'); }}
+        >
             <Left>
                 <Badge style={styles.badge} warning>
                     <Text>{cases.NewConfirmed}</Text>
@@ -91,15 +101,17 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>New confirmed cases</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('new-confirmed'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('new-deaths'); }}
+        >
             <Left>
                 <Badge style={styles.badge} danger>
                     <Text>{cases.NewConfirmed}</Text>
@@ -110,15 +122,17 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>New confirmed deaths</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('new-deaths'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
-        <ListItem thumbnail style={styles.listItem}>
+        <ListItem
+            thumbnail
+            style={styles.listItem}
+            onPress={() => { navigateToCase('new-recovered'); }}
+        >
             <Left>
                 <Badge style={styles.badge} success>
                     <Text>{cases.NewRecovered}</Text>
@@ -129,12 +143,10 @@ const List = ({ cases, navigateToCase }) => (
                 <Text note numberOfLines={1}>New NewRecovered</Text>
             </Body>
             <Right>
-                <Button
-                    transparent
-                    onPress={() => { navigateToCase('new-recovered'); }}
-                >
-                    <Text>View</Text>
-                </Button>
+                <Icon
+                    name="arrow-forward"
+                    style={styles.arrow}
+                />
             </Right>
         </ListItem>
     </NativeBaseList>

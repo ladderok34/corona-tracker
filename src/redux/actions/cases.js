@@ -1,23 +1,23 @@
 import {
-    FETCH_SUMMARY,
-    FETCH_SUMMARY_ERROR,
-    SHOW_SPINNER,
+    SET_CASES,
+    SET_CASES_ERROR,
+    SET_CASES_LOADED,
 } from '../types/cases';
 import api from 'api/api';
 
-const setFetchSummaryError = (isError) => dispatch => dispatch({ type: FETCH_SUMMARY_ERROR, payload: isError });
-const setShowSpinner = (visible) => dispatch => dispatch({ type: SHOW_SPINNER, payload: visible });
+const setCasesError = (isError) => dispatch => dispatch({ type: SET_CASES_ERROR, payload: isError });
+const setCasesLoaded = (loaded) => dispatch => dispatch({ type: SET_CASES_LOADED, payload: loaded });
 
-export const fetchSummary = () => dispatch => {
-    setShowSpinner(true)(dispatch);
+export const fetchCases = () => dispatch => {
+    dispatch(setCasesLoaded(false));
     api.getSummary()
         .then(({ data }) => {
             dispatch({
-                type: FETCH_SUMMARY,
+                type: SET_CASES,
                 payload: data,
             });
-            setFetchSummaryError(false)(dispatch);
+            dispatch(setCasesError(false));
         })
-        .catch(() => setFetchSummaryError(true)(dispatch))
-        .finally(() => setShowSpinner(false)(dispatch));
+        .catch(() => dispatch(setCasesError(true)))
+        .finally(() => dispatch(setCasesLoaded(true)));
 };

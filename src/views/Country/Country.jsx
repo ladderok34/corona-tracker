@@ -1,12 +1,13 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { getShowSpinner, getCountry, getFailedLoading } from 'selectors/country';
+import { getIsCountryLoaded, getCountry, getIsCountryError } from 'selectors/country';
 import { fetchCountryInfo, unsetCountryInfo } from 'actions/country';
 import { addToFavorites, removeFromFavorites } from 'actions/favorites';
 import { getFavoritesCountryNames } from 'selectors/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import { useRoute } from '@react-navigation/native';
 import CountryPresentational from './Country.presentational';
+import Container from 'components/Container/Container';
 
 const Country = () => {
     const route = useRoute();
@@ -25,13 +26,13 @@ const Country = () => {
 
     const {
         data,
-        showSpinner,
-        failedLoading,
+        isLoaded,
+        isError,
         favorites,
     } = useSelector(state => ({
         data: getCountry(state),
-        showSpinner: getShowSpinner(state),
-        failedLoading: getFailedLoading(state),
+        isLoaded: getIsCountryLoaded(state),
+        isError: getIsCountryError(state),
         favorites: getFavoritesCountryNames(state),
     }), shallowEqual);
 
@@ -53,7 +54,12 @@ const Country = () => {
     }, [inFavorites]);
 
     return (
-        <>
+        <Container
+            isError={isError}
+            refetch={fetchCountryInfoDispatch}
+            isLaoded={isLoaded}
+            centered={isError || !isLoaded}
+        >
             {data.length > 0 && (
                 <CountryPresentational
                     data={data}
@@ -62,7 +68,7 @@ const Country = () => {
                     inFavorites={inFavorites}
                 />
             )}
-        </>
+        </Container>
     );
 };
 

@@ -1,30 +1,25 @@
 import {
-    FETCH_COUNTRY,
-    SHOW_SPINNER,
-    FETCH_ERROR,
+    SET_COUNTRY,
+    SET_COUNTRY_LOADED,
+    SET_COUNTRY_ERROR,
 } from '../types/country';
 import api from 'api/api';
 
-const setShowSpinner = (visible) => dispatch => dispatch({ type: SHOW_SPINNER, payload: visible });
-const setFetchError = (isError) => dispatch => dispatch({ type: FETCH_ERROR, payload: isError });
+const setCountryLoaded = (loaded) => dispatch => dispatch({ type: SET_COUNTRY_LOADED, payload: loaded });
+const setCountryError = (isError) => dispatch => dispatch({ type: FETCH_ERROR, payload: SET_COUNTRY_ERROR });
 
 export const fetchCountryInfo = (code) => dispatch => {
-    setShowSpinner(true)(dispatch);
+    dispatch(setCountryLoaded(false));
     api.getCountry(code)
         .then(({ data }) => {
             dispatch({
-                type: FETCH_COUNTRY,
+                type: SET_COUNTRY,
                 payload: data,
             });
-            setFetchError(false)(dispatch);
+            dispatch(setCountryError(false));
         })
-        .catch(() => setFetchError(true)(dispatch))
-        .finally(() => setShowSpinner(false)(dispatch));
+        .catch(() => dispatch(setCountryError(true)))
+        .finally(() => dispatch(setCountryLoaded(true)));
 };
 
-export const unsetCountryInfo = () => dispatch => {
-    dispatch({
-        type: FETCH_COUNTRY,
-        payload: [],
-    });
-};
+export const unsetCountryInfo = () => dispatch => dispatch({ type: SET_COUNTRY, payload: [] });

@@ -5,7 +5,6 @@ import React, {
     useRef,
     useMemo,
 } from 'react';
-import { SafeAreaView } from 'react-native';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
@@ -16,6 +15,7 @@ import { findCountriesByName, sortCountries } from './Countries.utils';
 import Header from './components/Header/Header';
 import NoResults from './components/NoResults/NoResults';
 import CountriesList from 'components/CountriesList/CountriesList';
+import Container from 'components/Container/Container';
 
 const countriesToRenderPerScroll = 50;
 
@@ -92,22 +92,26 @@ const Countries = () => {
     }, []);
 
     return (
-        <SafeAreaView>
-            <Header />
-            {searchQuery.length > 0 && !sortedCountries.length && (
-                <NoResults
-                    searchQuery={searchQuery}
-                    resetSearch={resetSearchDispatch}
-                />
-            )}
-            {countriesToRender.length > 0 && (
-                <CountriesList
-                    data={remapCountries(countriesToRender)}
-                    listItemOnPress={navigateToCountry}
-                    handleEndOnReached={handleEndOnReached}
-                />
-            )}
-        </SafeAreaView>
+        <Container
+            header={<Header />}
+            centered={searchQuery.length > 0 && !sortedCountries.length}
+        >
+            <>
+                {(searchQuery.length > 0 && !sortedCountries.length) ? (
+                    <NoResults
+                        searchQuery={searchQuery}
+                        resetSearch={resetSearchDispatch}
+                    />
+                ) : null}
+                {countriesToRender.length > 0 && (
+                    <CountriesList
+                        data={remapCountries(countriesToRender)}
+                        listItemOnPress={navigateToCountry}
+                        handleEndOnReached={handleEndOnReached}
+                    />
+                )}
+            </>
+        </Container>
     );
 };
 

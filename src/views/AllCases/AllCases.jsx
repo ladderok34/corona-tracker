@@ -1,35 +1,40 @@
 import React, { useEffect, useCallback } from 'react';
-import { SafeAreaView } from 'react-native';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
-import { fetchSummary } from 'actions/cases';
+import {
+    getIsCasesLoaded,
+    getIsCasesError,
+    getTotalCases,
+} from 'selectors/cases';
+import { fetchCases } from 'actions/cases';
 import { fetchFavoritesCountryNames } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
+import Container from 'components/Container/Container';
+import List from './components/List/List';
 
 const AllCases = () => {
     const navigation = useNavigation();
     const [
-        fetchSummaryDispatch,
+        fetchCasesDispatch,
         fetchFavoritesCountryNamesDispatch,
     ] = useActions([
-        fetchSummary,
+        fetchCases,
         fetchFavoritesCountryNames,
     ]);
 
     const {
-        summaryLoadFailed,
-        showSpinner,
+        isError,
+        isLoaded,
         totalCases,
     } = useSelector(state => ({
-        summaryLoadFailed: getSummaryLoadFailed(state),
-        showSpinner: getShowSpinner(state),
+        isError: getIsCasesError(state),
+        isLoaded: getIsCasesLoaded(state),
         totalCases: getTotalCases(state),
     }), shallowEqual);
 
     useEffect(() => {
-        fetchSummaryDispatch();
+        fetchCasesDispatch();
         fetchFavoritesCountryNamesDispatch();
     }, []);
 
@@ -38,9 +43,20 @@ const AllCases = () => {
     }, []);
 
     return (
-        <SafeAreaView>
-            <DefaultHeader title="All cases" />
-        </SafeAreaView>
+        <Container
+            isLoaded={isLoaded}
+            isError={isError}
+            refetch={fetchCasesDispatch}
+            header={<DefaultHeader title="All cases" />}
+            centered={isError || !isLoaded}
+        >
+            {Object.keys(totalCases).length > 0 && (
+                <List
+                    cases={totalCases}
+                    navigateToCase={navigateToCase}
+                />
+            )}
+        </Container>
     );
 };
 

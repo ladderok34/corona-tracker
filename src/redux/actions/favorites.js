@@ -28,7 +28,7 @@ const getFavoritesCountryNamesFromStorage = async () => {
 export const fetchFavoritesCountryNames = () => async dispatch => {
     try {
         const favoritesList = await getFavoritesCountryNamesFromStorage();
-        setFavoritesCountryNames(favoritesList)(dispatch);
+        dispatch(setFavoritesCountryNames(favoritesList));
     } catch (e) {
         console.error('Failed to get favorites country names', e);
     }
@@ -36,7 +36,7 @@ export const fetchFavoritesCountryNames = () => async dispatch => {
 
 export const fetchFavoritesCountriesData = (countryNames) => async dispatch => {
     let promises = [];
-    setFavoritesLoaded(false)(dispatch);
+    dispatch(setFavoritesLoaded(false));
 
     countryNames.forEach((country) => {
         promises = [...promises, api.getCountry(country.code)];
@@ -49,8 +49,8 @@ export const fetchFavoritesCountriesData = (countryNames) => async dispatch => {
             countriesData = [...countriesData, lastDayData];
         });
 
-        setFavoritesCountriesData(countriesData)(dispatch);
-        setFavoritesLoaded(true)(dispatch);
+        dispatch(setFavoritesCountriesData(countriesData));
+        dispatch(setFavoritesLoaded(true));
     });
 };
 
@@ -70,7 +70,7 @@ export const addToFavorites = (name, code) => async dispatch => {
         await AsyncStorage.removeItem(storageKeyName);
         await AsyncStorage.setItem(storageKeyName, updatedFavoritesListJson);
 
-        setFavoritesCountryNames(updatedFavoritesList)(dispatch);
+        dispatch(setFavoritesCountryNames(updatedFavoritesList));
     } catch (e) {
         console.error('Failed to add country name to favorites country names', e);
     };
@@ -95,7 +95,7 @@ export const removeFromFavorites = (code) => async dispatch => {
             await AsyncStorage.removeItem(storageKeyName);
         }
 
-        setFavoritesCountryNames(filteredFavoritesList)(dispatch);
+        dispatch(setFavoritesCountryNames(filteredFavoritesList));
     } catch (e) {
         console.error('Failed to remove country name from favorites country names', e);
     }

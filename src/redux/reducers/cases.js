@@ -1,33 +1,33 @@
 import {
-    FETCH_SUMMARY,
-    FETCH_SUMMARY_ERROR,
-    SHOW_SPINNER,
+    SET_CASES,
+    SET_CASES_ERROR,
+    SET_CASES_LOADED,
 } from '../types/cases';
 
 export const initialState = {
     total: {},
     countries: [],
-    summaryLoadFailed: false,
-    showSpinner: false,
+    isError: false,
+    isLoaded: false,
 };
 
 const cases = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_SUMMARY:
+        case SET_CASES:
             return {
                 ...state,
                 total: payload.Global,
                 countries: payload.Countries,
             };
-        case FETCH_SUMMARY_ERROR:
+        case SET_CASES_ERROR:
             return {
                 ...state,
-                summaryLoadFailed: payload,
+                isError: payload,
             };
-        case SHOW_SPINNER:
+        case SET_CASES_LOADED:
             return {
                 ...state,
-                showSpinner: payload,
+                isLoaded: payload,
             };
         default:
             return state;
