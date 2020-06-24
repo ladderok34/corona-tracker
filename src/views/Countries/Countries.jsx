@@ -12,12 +12,20 @@ import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
 import { getCountriesCases } from 'selectors/cases';
 import { useActions } from 'reduxHooks/useActions';
 import { resetSearch } from 'actions/countriesOptions';
-import List from './components/List/List';
 import { findCountriesByName, sortCountries } from './Countries.utils';
 import Header from './components/Header/Header';
 import NoResults from './components/NoResults/NoResults';
+import CountriesList from 'components/CountriesList/CountriesList';
 
 const countriesToRenderPerScroll = 50;
+
+const remapCountries = data => data.map(country => ({
+    countryName: country.Country,
+    countryCode: country.CountryCode,
+    confirmed: country.TotalConfirmed,
+    deaths: country.TotalDeaths,
+    recovered: country.TotalRecovered,
+}));
 
 const Countries = () => {
     const navigation = useNavigation();
@@ -68,8 +76,8 @@ const Countries = () => {
 
     useEffect(() => {
         const sliceTo =  currentScrollChunk * countriesToRenderPerScroll;
-        const countriesList = sortedCountries.slice(0, sliceTo);
-        setCountriesToRender(countriesList);
+        const slicedCountries = sortedCountries.slice(0, sliceTo);
+        setCountriesToRender(slicedCountries);
     }, [currentScrollChunk, sortedCountries]);
 
     const handleEndOnReached = useCallback(() => {
@@ -93,9 +101,9 @@ const Countries = () => {
                 />
             )}
             {countriesToRender.length > 0 && (
-                <List
-                    countries={countriesToRender}
-                    navigateToCountry={navigateToCountry}
+                <CountriesList
+                    data={remapCountries(countriesToRender)}
+                    listItemOnPress={navigateToCountry}
                     handleEndOnReached={handleEndOnReached}
                 />
             )}

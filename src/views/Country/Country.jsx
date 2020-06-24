@@ -7,7 +7,6 @@ import { getFavoritesCountryNames } from 'selectors/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import { useRoute } from '@react-navigation/native';
 import CountryPresentational from './Country.presentational';
-import Container from 'components/Container/Container';
 
 const Country = () => {
     const route = useRoute();
@@ -54,11 +53,7 @@ const Country = () => {
     }, [inFavorites]);
 
     return (
-        <Container
-            showSpinner={showSpinner}
-            failedLoading={failedLoading}
-            refetch={() => { fetchCountryInfoDispatch(code); }}
-        >
+        <>
             {data.length > 0 && (
                 <CountryPresentational
                     data={data}
@@ -67,7 +62,7 @@ const Country = () => {
                     inFavorites={inFavorites}
                 />
             )}
-        </Container>
+        </>
     );
 };
 

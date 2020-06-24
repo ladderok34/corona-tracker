@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import isEqual from 'lodash/isEqual';
+import { SafeAreaView } from 'react-native';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
-import Container from 'components/Container/Container';
 import {
     getFavoritesCountriesData,
     getFavoritesCountryNames,
@@ -15,8 +15,25 @@ import {
     setFavoritesLoaded,
 } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
-import List from './components/List/List';
+import CountriesList from 'components/CountriesList/CountriesList';
 import Empty from './components/Empty/Empty';
+
+const remapCountries = (data, countryNames) => data.map((country) => {
+    let currentCountryNames = countryNames.find(item => item.name === country.Country);
+
+    if (!!currentCountryNames === false) {
+        // only issue with on dev coz of mocked api data.
+        currentCountryNames = { code: 'DK', name: 'Denmark' };
+    }
+
+    return {
+        countryName: country.Country,
+        countryCode: currentCountryNames.code,
+        confirmed: country.Confirmed,
+        deaths: country.Deaths,
+        recovered: country.Recovered,
+    };
+});
 
 const Favorites = () => {
     const navigation = useNavigation();
@@ -53,19 +70,15 @@ const Favorites = () => {
     }, []);
 
     return (
-        <Container
-            header={<DefaultHeader title="Favorites" />}
-            showSpinner={!isLoaded}
-        >
-            {isLoaded && !!countriesData.length === false && <Empty />}
-            {isLoaded && !!countriesData.length === true && (
-                <List
-                    countries={countriesData}
-                    countryNames={countryNames}
-                    navigateToCountry={navigateToCountry}
+        <SafeAreaView>
+            <DefaultHeader title="Favorites" />
+            {!!countriesData.length && (
+                <CountriesList
+                    data={remapCountries(countriesData, countryNames)}
+                    listItemOnPress={navigateToCountry}
                 />
             )}
-        </Container>
+        </SafeAreaView>
     );
 };
 

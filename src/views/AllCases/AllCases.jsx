@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import { SafeAreaView } from 'react-native';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getShowSpinner, getSummaryLoadFailed, getTotalCases } from 'selectors/cases';
@@ -6,8 +7,6 @@ import { fetchSummary } from 'actions/cases';
 import { fetchFavoritesCountryNames } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
-import List from './components/List/List';
-import Container from 'components/Container/Container';
 
 const AllCases = () => {
     const navigation = useNavigation();
@@ -39,19 +38,9 @@ const AllCases = () => {
     }, []);
 
     return (
-        <Container
-            showSpinner={showSpinner}
-            failedLoading={summaryLoadFailed}
-            refetch={fetchSummaryDispatch}
-            header={<DefaultHeader title="All cases" />}
-        >
-            {Object.keys(totalCases).length > 0 && (
-                <List
-                    cases={totalCases}
-                    navigateToCase={navigateToCase}
-                />
-            )}
-        </Container>
+        <SafeAreaView>
+            <DefaultHeader title="All cases" />
+        </SafeAreaView>
     );
 };
 
