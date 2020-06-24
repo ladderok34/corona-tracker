@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AllCases from 'components/AllCases/AllCases';
-import Case from 'components/Case/Case';
-import Countries from 'components/Countries/Countries';
-import Country from 'components/Country/Country';
-import Favorites from 'components/Favorites/Favorites';
+import AllCases from 'views/AllCases/AllCases';
+import Case from 'views/Case/Case';
+import Countries from 'views/Countries/Countries';
+import Country from 'views/Country/Country';
+import Favorites from 'views/Favorites/Favorites';
 import configureStore from './redux/createReduxStore';
 
 const Stack = createStackNavigator();

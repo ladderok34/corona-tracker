@@ -11,6 +11,7 @@ module.exports = function(api) {
                     selectors: "./src/redux/selectors",
                     reduxHooks: "./src/redux/hooks",
                     components: "./src/components",
+                    views: "./src/views",
                     api: "./src/api",
                 },
             },

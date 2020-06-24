@@ -7,7 +7,7 @@ import { getFavoritesCountryNames } from 'selectors/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import { useRoute } from '@react-navigation/native';
 import CountryPresentational from './Country.presentational';
-import Container from '../Container/Container';
+import Container from 'components/Container/Container';
 
 const Country = () => {
     const route = useRoute();
