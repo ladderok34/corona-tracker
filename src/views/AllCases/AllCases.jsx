@@ -11,7 +11,7 @@ import { fetchFavoritesCountryNames } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 import Container from 'components/Container/Container';
-import List from './components/List/List';
+import List from './List/List';
 
 const AllCases = () => {
     const navigation = useNavigation();

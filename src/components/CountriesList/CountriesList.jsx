@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Text, Icon, Badge } from 'native-base';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
+import { prettifyNumber } from 'utils';
 
 const styles = StyleSheet.create({
     view: {
@@ -67,16 +68,16 @@ const CountriesList = ({
                 </View>
                 <View>
                     <Badge warning style={styles.badge}>
-                        <Text>{item.confirmed} Total</Text>
+                        <Text>{prettifyNumber(item.confirmed)} Total</Text>
                     </Badge>
                     <Badge style={styles.badge}>
-                        <Text>{item.deaths} Death</Text>
+                        <Text>{prettifyNumber(item.deaths)} Death</Text>
                     </Badge>
                     <Badge success style={styles.badge}>
-                        <Text>{item.recovered} Recovered</Text>
+                        <Text>{prettifyNumber(item.recovered)} Recovered</Text>
                     </Badge>
                     <Badge info>
-                        <Text>{item.confirmed - (item.recovered + item.deaths)} Remaining</Text>
+                        <Text>{prettifyNumber(item.confirmed - item.recovered + item.deaths)} Remaining</Text>
                     </Badge>
                 </View>
                 <Icon

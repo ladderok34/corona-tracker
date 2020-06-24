@@ -9,12 +9,13 @@ import {
     Badge,
     Icon,
 } from 'native-base';
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { prettifyNumber } from 'utils';
 
 const styles = StyleSheet.create({
     badge: {
-        width: 80,
+        width: 110,
     },
     arrow: {
         color: '#62B1F6',
@@ -30,7 +31,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} info>
-                    <Text>{cases.TotalConfirmed}</Text>
+                    <Text>{prettifyNumber(cases.TotalConfirmed)}</Text>
                 </Badge>
             </Left>
             <Body>
@@ -51,7 +52,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} error>
-                    <Text>{cases.TotalDeaths}</Text>
+                    <Text>{prettifyNumber(cases.TotalDeaths)}</Text>
                 </Badge>
             </Left>
             <Body>
@@ -72,7 +73,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} success>
-                    <Text>{cases.TotalRecovered}</Text>
+                    <Text>{prettifyNumber(cases.TotalRecovered)}</Text>
                 </Badge>
             </Left>
             <Body>
@@ -93,7 +94,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} warning>
-                    <Text>{cases.NewConfirmed}</Text>
+                    <Text>{prettifyNumber(cases.NewConfirmed)}</Text>
                 </Badge>
             </Left>
             <Body>
@@ -114,7 +115,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} danger>
-                    <Text>{cases.NewConfirmed}</Text>
+                    <Text>{prettifyNumber(cases.NewDeaths)}</Text>
                 </Badge>
             </Left>
             <Body>
@@ -135,7 +136,7 @@ const List = ({ cases, navigateToCase }) => (
         >
             <Left>
                 <Badge style={styles.badge} success>
-                    <Text>{cases.NewRecovered}</Text>
+                    <Text>{prettifyNumber(cases.NewRecovered)}</Text>
                 </Badge>
             </Left>
             <Body>
