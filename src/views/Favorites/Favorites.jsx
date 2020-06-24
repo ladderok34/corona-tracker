@@ -12,6 +12,7 @@ import {
     fetchFavoritesCountriesData,
     fetchFavoritesCountryNames,
     setFavoritesLoaded,
+    setFavoritesCountriesData,
 } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import CountriesList from 'components/CountriesList/CountriesList';
@@ -25,10 +26,12 @@ const Favorites = () => {
         fetchFavoritesCountriesDataDispatch,
         fetchFavoritesCountryNamesDispatch,
         setFavoritesLoadedDispatch,
+        setFavoritesCountriesDataDispatch,
     ]= useActions([
         fetchFavoritesCountriesData,
         fetchFavoritesCountryNames,
         setFavoritesLoaded,
+        setFavoritesCountriesData,
     ]);
 
     const {
@@ -46,6 +49,7 @@ const Favorites = () => {
             fetchFavoritesCountriesDataDispatch(countryNames);
         } else {
             setFavoritesLoadedDispatch(true);
+            setFavoritesCountriesDataDispatch([]);
         }
     }, [countryNames]);
 

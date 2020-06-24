@@ -10,7 +10,7 @@ const storageKeyName = 'CORONA_TRACKER_FAVORITES';
 
 export const setFavoritesLoaded = (isLoaded) => dispatch => dispatch({ type: SET_FAVORITES_LOADED, payload: isLoaded });
 const setFavoritesCountryNames = (data) => dispatch => dispatch({ type: SET_FAVORITES_COUNTRY_NAMES, payload: data });
-const setFavoritesCountriesData = (data) => dispatch => dispatch({ type: SET_FAVORITES_COUNTRIES_DATA, payload: data });
+export const setFavoritesCountriesData = (data) => dispatch => dispatch({ type: SET_FAVORITES_COUNTRIES_DATA, payload: data });
 
 const getFavoritesCountryNamesFromStorage = async () => {
     try {
