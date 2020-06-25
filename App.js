@@ -5,22 +5,19 @@ import { Ionicons } from '@expo/vector-icons';
 import CoronaTracker from './src/CoronaTracker';
 
 const App = () => {
-    const [loading, setLoading] = useState(true);
-
     const loadFonts = async () => {
         await Font.loadAsync({
             Roboto: require('native-base/Fonts/Roboto.ttf'),
             Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
             ...Ionicons.font,
         });
-        setLoading(false);
     };
 
     useEffect(() => {
         loadFonts();
     }, []);
 
-    return <CoronaTracker />
+    return <CoronaTracker />;
 };
 
 export default App;

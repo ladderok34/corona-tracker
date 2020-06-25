@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
     view: {
+        width: '90%',
         marginVertical: 100,
         justifyContent: 'center',
     },

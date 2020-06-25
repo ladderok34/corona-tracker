@@ -11,21 +11,13 @@ import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
 import { getCountriesCases } from 'selectors/cases';
 import { useActions } from 'reduxHooks/useActions';
 import { resetSearch } from 'actions/countriesOptions';
-import { findCountriesByName, sortCountries } from './Countries.utils';
+import { findCountriesByName, sortCountries, remapCountries } from './Countries.utils';
 import Header from './components/Header/Header';
 import NoResults from './components/NoResults/NoResults';
 import CountriesList from 'components/CountriesList/CountriesList';
 import Container from 'components/Container/Container';
 
 const countriesToRenderPerScroll = 50;
-
-const remapCountries = data => data.map(country => ({
-    countryName: country.Country,
-    countryCode: country.CountryCode,
-    confirmed: country.TotalConfirmed,
-    deaths: country.TotalDeaths,
-    recovered: country.TotalRecovered,
-}));
 
 const Countries = () => {
     const navigation = useNavigation();

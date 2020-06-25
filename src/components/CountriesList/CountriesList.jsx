@@ -77,7 +77,7 @@ const CountriesList = ({
                         <Text>{prettifyNumber(item.recovered)} Recovered</Text>
                     </Badge>
                     <Badge info>
-                        <Text>{prettifyNumber(item.confirmed - item.recovered + item.deaths)} Remaining</Text>
+                        <Text>{prettifyNumber(item.confirmed - (item.recovered + item.deaths))} Remaining</Text>
                     </Badge>
                 </View>
                 <Icon
