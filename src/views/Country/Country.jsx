@@ -1,74 +1,72 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { getIsCountryLoaded, getCountry, getIsCountryError } from 'selectors/country';
 import { fetchCountryInfo, unsetCountryInfo } from 'actions/country';
-import { addToFavorites, removeFromFavorites } from 'actions/favorites';
-import { getFavoritesCountryNames } from 'selectors/favorites';
+import { fetchFavorites, addToFavorites, removeFromFavorites } from 'actions/favorites';
+import { getFavorites } from 'selectors/favorites';
 import { useActions } from 'reduxHooks/useActions';
-import { useRoute } from '@react-navigation/native';
-import CountryPresentational from './Country.presentational';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import Container from 'components/Container/Container';
+import Header from './components/Header/Header';
+import Tabs from './components/Tabs/Tabs';
 
 const Country = () => {
     const route = useRoute();
-    const { name, code } = route.params;
+    const navigation = useNavigation();
+
+    const { country } = route.params;
     const [
         fetchCountryInfoDispatch,
         unsetCountryInfoDispatch,
+        fetchFavoritesDispatch,
         addToFavoritesDispatch,
         removeFromFavoritesDispatch,
     ] = useActions([
         fetchCountryInfo,
         unsetCountryInfo,
+        fetchFavorites,
         addToFavorites,
         removeFromFavorites,
     ]);
 
-    const {
-        data,
-        isLoaded,
-        isError,
-        favorites,
-    } = useSelector(state => ({
-        data: getCountry(state),
-        isLoaded: getIsCountryLoaded(state),
-        isError: getIsCountryError(state),
-        favorites: getFavoritesCountryNames(state),
-    }), shallowEqual);
-
     useEffect(() => {
-        fetchCountryInfoDispatch(code);
-        return () => {
-            unsetCountryInfoDispatch();
-        };
+        fetchFavoritesDispatch();
     }, []);
 
-    const inFavorites = useMemo(() => favorites.find(country => country.code === code), [favorites]);
+    const {
+        favorites,
+    } = useSelector(state => ({
+        favorites: getFavorites(state),
+    }), shallowEqual);
+
+    const inFavorites = useMemo(() => favorites.includes(country.countryCode), [favorites]);
+
+    const goBack = useCallback(() => {
+        navigation.goBack();
+    }, []);
 
     const toggleFavorites = useCallback(() => {
         if (inFavorites) {
-            removeFromFavoritesDispatch(code);
+            removeFromFavoritesDispatch(country.countryCode);
         } else {
-            addToFavoritesDispatch(name, code);
+            addToFavoritesDispatch(country.countryCode);
         }
     }, [inFavorites]);
 
+    console.log('sasaka');
+
     return (
         <Container
-            isError={isError}
-            refetch={fetchCountryInfoDispatch}
-            isLaoded={isLoaded}
-            centered={isError || !isLoaded}
-        >
-            {data.length > 0 && (
-                <CountryPresentational
-                    data={data}
-                    code={code}
-                    favoritesOnPress={toggleFavorites}
+            header={(
+                <Header
+                    countryName={country.countryName}
+                    countryCode={country.countryCode}
                     inFavorites={inFavorites}
+                    goBack={goBack}
+                    favoritesOnPress={toggleFavorites}
                 />
             )}
-        </Container>
+            tabs={<Tabs data={country} />}
+        />
     );
 };
 

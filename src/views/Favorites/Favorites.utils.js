@@ -1,16 +1,18 @@
-export const remapCountries = (data, countryNames) => data.map((country) => {
-    let currentCountryNames = countryNames.find(item => item.name === country.Country);
+export const getFavoritesCountriesExtendedInfo = (favorites, countries) => favorites.reduce((accumulator, code) => {
+    const favoritesCountry = countries.find(country => code === country.CountryCode);
 
-    if (!!currentCountryNames === false) {
-        // only issue with on dev coz of mocked api data.
-        currentCountryNames = { code: 'DK', name: 'Denmark' };
+    if (!!favoritesCountry !== false) {
+        const remappedCountry = {
+            countryName: favoritesCountry.Country,
+            countryCode: favoritesCountry.CountryCode,
+            confirmed: favoritesCountry.TotalConfirmed,
+            deaths: favoritesCountry.TotalDeaths,
+            recovered: favoritesCountry.TotalRecovered,
+        };
+
+        accumulator.push(remappedCountry);
     }
 
-    return {
-        countryName: country.Country,
-        countryCode: currentCountryNames.code,
-        confirmed: country.Confirmed,
-        deaths: country.Deaths,
-        recovered: country.Recovered,
-    };
-});
+    return accumulator;
+}, []);
+

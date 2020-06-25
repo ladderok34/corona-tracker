@@ -1,18 +1,12 @@
-import {
-    SET_FAVORITES_COUNTRY_NAMES,
-    SET_FAVORITES_COUNTRIES_DATA,
-    SET_FAVORITES_LOADED,
-} from '../types/favorites';
+import { SET_FAVORITES } from '../types/favorites';
 import AsyncStorage from '@react-native-community/async-storage';
-import api from 'api/api';
 
 const storageKeyName = 'CORONA_TRACKER_FAVORITES';
 
-export const setFavoritesLoaded = (isLoaded) => dispatch => dispatch({ type: SET_FAVORITES_LOADED, payload: isLoaded });
-const setFavoritesCountryNames = (data) => dispatch => dispatch({ type: SET_FAVORITES_COUNTRY_NAMES, payload: data });
-export const setFavoritesCountriesData = (data) => dispatch => dispatch({ type: SET_FAVORITES_COUNTRIES_DATA, payload: data });
+const setFavorites = (data) => dispatch => dispatch({ type: SET_FAVORITES, payload: data });
 
-const getFavoritesCountryNamesFromStorage = async () => {
+const getFavoritesFromStorage = async () => {
+    await AsyncStorage.getItem(storageKeyName);
     try {
         let favoritesList = await AsyncStorage.getItem(storageKeyName);
         if (favoritesList === null) {
@@ -21,58 +15,40 @@ const getFavoritesCountryNamesFromStorage = async () => {
 
         return JSON.parse(favoritesList);
     } catch (e) {
-        console.error('Failed to get favorites country names', e);
+        console.error('Failed to get favorites', e);
     }
 };
 
-export const fetchFavoritesCountryNames = () => async dispatch => {
+export const fetchFavorites = () => async dispatch => {
     try {
-        const favoritesList = await getFavoritesCountryNamesFromStorage();
-        dispatch(setFavoritesCountryNames(favoritesList));
+        const favoritesList = await getFavoritesFromStorage();
+        dispatch(setFavorites(favoritesList));
     } catch (e) {
-        console.error('Failed to get favorites country names', e);
+        console.error('Failed to get favorites', e);
     }
 };
 
-export const fetchFavoritesCountriesData = (countryNames) => async dispatch => {
-    let promises = [];
-    dispatch(setFavoritesLoaded(false));
-
-    countryNames.forEach((country) => {
-        promises = [...promises, api.getCountry(country.code)];
-    });
-
-    Promise.all(promises).then((data) => {
-        let countriesData = [];
-        data.forEach((country) => {
-            const lastDayData = country.data[country.data.length - 1];
-            countriesData = [...countriesData, lastDayData];
-        });
-
-        dispatch(setFavoritesCountriesData(countriesData));
-        dispatch(setFavoritesLoaded(true));
-    });
-};
-
-export const addToFavorites = (name, code) => async dispatch => {
+export const addToFavorites = (code) => async dispatch => {
     try {
         const favoritesList = await AsyncStorage.getItem(storageKeyName);
         let updatedFavoritesList = [];
 
         if (!!favoritesList === true) {
             const parsedFavoritesList = JSON.parse(favoritesList);
-            updatedFavoritesList = [...parsedFavoritesList, { name, code }];
+            const filteredFavoritesList = parsedFavoritesList.filter(item => item !== code);
+
+            updatedFavoritesList = [...filteredFavoritesList, code];
         } else {
-            updatedFavoritesList = [{ name, code }];
+            updatedFavoritesList = [code];
         }
 
         const updatedFavoritesListJson = JSON.stringify(updatedFavoritesList);
         await AsyncStorage.removeItem(storageKeyName);
         await AsyncStorage.setItem(storageKeyName, updatedFavoritesListJson);
 
-        dispatch(setFavoritesCountryNames(updatedFavoritesList));
+        dispatch(setFavorites(updatedFavoritesList));
     } catch (e) {
-        console.error('Failed to add country name to favorites country names', e);
+        console.error('Failed to add country code to favorites country codes', e);
     };
 };
 
@@ -85,7 +61,7 @@ export const removeFromFavorites = (code) => async dispatch => {
             return;
         }
 
-        const filteredFavoritesList = parsedFavoritesList.filter(country => country.code !== code);
+        const filteredFavoritesList = parsedFavoritesList.filter(item => item !== code);
 
         if (filteredFavoritesList.length > 0) {
             const filteredFavoritesListJson = JSON.stringify(filteredFavoritesList);
@@ -95,8 +71,8 @@ export const removeFromFavorites = (code) => async dispatch => {
             await AsyncStorage.removeItem(storageKeyName);
         }
 
-        dispatch(setFavoritesCountryNames(filteredFavoritesList));
+        dispatch(setFavorites(filteredFavoritesList));
     } catch (e) {
-        console.error('Failed to remove country name from favorites country names', e);
+        console.error('Failed to remove country code from favorites country codes', e);
     }
 };

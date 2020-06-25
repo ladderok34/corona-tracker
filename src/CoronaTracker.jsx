@@ -21,7 +21,11 @@ const CountriesNavigation = () => (
             component={Countries}
             options={{ headerShown: false }}
         />
-        <Stack.Screen name="Country" component={Country} />
+        <Stack.Screen
+            name="Country"
+            component={Country}
+            options={{ headerShown: false }}
+        />
     </Stack.Navigator>
 );
 
@@ -56,9 +60,7 @@ const FavoritesNavigation = () => (
         <Stack.Screen
             name="Country"
             component={Country}
-            options={{
-
-            }}
+            options={{ headerShown: false }}
         />
     </Stack.Navigator>
 );

@@ -1,74 +1,49 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import isEqual from 'lodash/isEqual';
+import { useActions } from 'reduxHooks/useActions';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
-import {
-    getFavoritesCountriesData,
-    getFavoritesCountryNames,
-    getFavoritesLoaded,
-} from 'selectors/favorites';
-import {
-    fetchFavoritesCountriesData,
-    fetchFavoritesCountryNames,
-    setFavoritesLoaded,
-    setFavoritesCountriesData,
-} from 'actions/favorites';
-import { useActions } from 'reduxHooks/useActions';
+import { getFavorites } from 'selectors/favorites';
+import { fetchFavorites } from 'actions/favorites';
+import { getCountriesCases } from 'selectors/cases';
 import CountriesList from 'components/CountriesList/CountriesList';
 import Container from 'components/Container/Container';
-import { remapCountries } from './Favorites.utils';
 import Empty from './components/Empty/Empty';
+import { getFavoritesCountriesExtendedInfo } from './Favorites.utils';
 
 const Favorites = () => {
     const navigation = useNavigation();
-    const [
-        fetchFavoritesCountriesDataDispatch,
-        fetchFavoritesCountryNamesDispatch,
-        setFavoritesLoadedDispatch,
-        setFavoritesCountriesDataDispatch,
-    ]= useActions([
-        fetchFavoritesCountriesData,
-        fetchFavoritesCountryNames,
-        setFavoritesLoaded,
-        setFavoritesCountriesData,
-    ]);
+    const fetchFavoritesDispatch = useActions(fetchFavorites);
 
     const {
-        countryNames,
-        countriesData,
-        isLoaded,
+        favorites,
+        countries,
     } = useSelector(state => ({
-        countryNames: getFavoritesCountryNames(state),
-        countriesData: getFavoritesCountriesData(state),
-        isLoaded: getFavoritesLoaded(state),
+        favorites: getFavorites(state),
+        countries: getCountriesCases(state),
     }), shallowEqual);
 
     useEffect(() => {
-        if (countryNames.length > 0) {
-            fetchFavoritesCountriesDataDispatch(countryNames);
-        } else {
-            setFavoritesLoadedDispatch(true);
-            setFavoritesCountriesDataDispatch([]);
-        }
-    }, [countryNames]);
+        fetchFavoritesDispatch();
+    }, [])
 
-    const navigateToCountry = useCallback((name, code) => {
-        navigation.navigate('Country', { name, code });
+    const navigateToCountry = useCallback((country) => {
+        navigation.navigate('Country', { country });
     }, []);
 
     return (
         <Container
-            isLoaded={isLoaded}
             header={<DefaultHeader title="Favorites" />}
-            centered={!isLoaded || (isLoaded && !!countriesData.length === false)}
+            centered={!favorites.length}
         >
-            {isLoaded && !!countriesData.length === false && <Empty />}
-            {!!countriesData.length && (
+            {favorites.length > 0 && countries.length > 0 ? (
                 <CountriesList
-                    data={remapCountries(countriesData, countryNames)}
+                    data={getFavoritesCountriesExtendedInfo(favorites, countries)}
                     listItemOnPress={navigateToCountry}
                 />
+            ) : (
+                <Empty />
             )}
         </Container>
     );

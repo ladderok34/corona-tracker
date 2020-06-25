@@ -55,7 +55,7 @@ const CountriesList = ({
         onEndReachedThreshold={0.5}
         renderItem={({ index, item }) => (
             <TouchableOpacity
-                onPress={() => { listItemOnPress(item.countryName, item.countryCode); }}
+                onPress={() => { listItemOnPress(item); }}
                 activeOpacity={1}
                 style={{
                     ...styles.item,

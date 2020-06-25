@@ -7,7 +7,6 @@ import {
     getTotalCases,
 } from 'selectors/cases';
 import { fetchCases } from 'actions/cases';
-import { fetchFavoritesCountryNames } from 'actions/favorites';
 import { useActions } from 'reduxHooks/useActions';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 import Container from 'components/Container/Container';
@@ -15,13 +14,7 @@ import List from './List/List';
 
 const AllCases = () => {
     const navigation = useNavigation();
-    const [
-        fetchCasesDispatch,
-        fetchFavoritesCountryNamesDispatch,
-    ] = useActions([
-        fetchCases,
-        fetchFavoritesCountryNames,
-    ]);
+    const fetchCasesDispatch = useActions(fetchCases);
 
     const {
         isError,
@@ -35,7 +28,6 @@ const AllCases = () => {
 
     useEffect(() => {
         fetchCasesDispatch();
-        fetchFavoritesCountryNamesDispatch();
     }, []);
 
     const navigateToCase = useCallback((name) => {

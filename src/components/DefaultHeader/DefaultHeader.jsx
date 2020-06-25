@@ -11,14 +11,14 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 
-const DefaultHeader = ({ title }) => {
+const DefaultHeader = ({ title, ...props }) => {
     const navigation = useNavigation();
     const openDrawer = useCallback(() => {
         navigation.dispatch(DrawerActions.openDrawer());
     }, []);
 
     return (
-        <Header>
+        <Header {...props}>
             <Left>
                 <Button
                     transparent

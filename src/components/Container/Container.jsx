@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 const Container = ({
     children,
     header,
+    tabs,
     isLoaded,
     isError,
     refetch,
@@ -22,6 +23,7 @@ const Container = ({
 }) => (
     <NativeBaseContainer>
         {header && header}
+        {tabs && tabs}
         <View
             style={centered ? styles.centered : {}}
         >
@@ -35,6 +37,7 @@ const Container = ({
 Container.propTypes = {
     children: PropTypes.node,
     header: PropTypes.node,
+    tabs: PropTypes.node,
     isLoaded: PropTypes.bool,
     isError: PropTypes.bool,
     refetch: PropTypes.func,
@@ -43,6 +46,7 @@ Container.propTypes = {
 Container.defaultProps = {
     children: null,
     header: null,
+    tabs: null,
     isLoaded: true,
     isError: false,
     refetch: () => {},

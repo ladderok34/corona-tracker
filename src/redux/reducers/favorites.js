@@ -1,23 +1,13 @@
-import {
-    SET_FAVORITES_COUNTRY_NAMES,
-    SET_FAVORITES_LOADED,
-    SET_FAVORITES_COUNTRIES_DATA,
-} from '../types/favorites';
+import { SET_FAVORITES } from '../types/favorites';
 
 export const initialState = {
-    countryNames: [],
-    countriesData: [],
-    isLoaded: false,
+    countries: [],
 };
 
 const favorites = (state = initialState, { type, payload }) => {
     switch (type) {
-        case SET_FAVORITES_COUNTRY_NAMES:
-            return { ...state, countryNames: payload };
-        case SET_FAVORITES_COUNTRIES_DATA:
-            return { ...state, countriesData: payload };
-        case SET_FAVORITES_LOADED:
-            return { ...state, isLoaded: payload };
+        case SET_FAVORITES:
+            return { ...state, countries: payload };
         default:
             return state;
     }
