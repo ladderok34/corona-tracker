@@ -1,42 +1,51 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, {
+    useEffect,
+    useCallback,
+    useMemo,
+} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { fetchCountryInfo, unsetCountryInfo } from 'actions/country';
 import { fetchFavorites, addToFavorites, removeFromFavorites } from 'actions/favorites';
 import { getFavorites } from 'selectors/favorites';
+import { getCountry } from 'selectors/country';
+import { setCountry, fetchCountry } from 'actions/country';
 import { useActions } from 'reduxHooks/useActions';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Container from 'components/Container/Container';
 import Header from './components/Header/Header';
+import api from 'api/api';
 import Tabs from './components/Tabs/Tabs';
+import { setDateRequestParams } from './Country.utils';
 
 const Country = () => {
-    const route = useRoute();
     const navigation = useNavigation();
+    const route = useRoute();
 
-    const { country } = route.params;
     const [
-        fetchCountryInfoDispatch,
-        unsetCountryInfoDispatch,
         fetchFavoritesDispatch,
         addToFavoritesDispatch,
         removeFromFavoritesDispatch,
+        setCountryDispatch,
+        fetchCountryDispatch,
     ] = useActions([
-        fetchCountryInfo,
-        unsetCountryInfo,
         fetchFavorites,
         addToFavorites,
         removeFromFavorites,
+        setCountry,
+        fetchCountry,
     ]);
-
-    useEffect(() => {
-        fetchFavoritesDispatch();
-    }, []);
 
     const {
         favorites,
+        country,
     } = useSelector(state => ({
         favorites: getFavorites(state),
+        country: getCountry(state),
     }), shallowEqual);
+
+    useEffect(() => {
+        fetchFavoritesDispatch();
+        setCountryDispatch(route.params.country);
+    }, []);
 
     const inFavorites = useMemo(() => favorites.includes(country.countryCode), [favorites]);
 
@@ -52,7 +61,18 @@ const Country = () => {
         }
     }, [inFavorites]);
 
-    console.log('sasaka');
+    const onTabChange = useCallback((heading) => {
+        if (heading === 'Total') {
+            setCountryDispatch(route.params.country);
+        } else {
+            const dateParams = setDateRequestParams();
+            fetchCountryDispatch(country.countryCode, dateParams, country, heading);
+        }
+    }, [country]);
+
+    if (!Object.keys(country).length) {
+        return null;
+    }
 
     return (
         <Container
@@ -65,7 +85,12 @@ const Country = () => {
                     favoritesOnPress={toggleFavorites}
                 />
             )}
-            tabs={<Tabs data={country} />}
+            tabs={(
+                <Tabs
+                    data={country}
+                    onTabChange={onTabChange}
+                />
+            )}
         />
     );
 };

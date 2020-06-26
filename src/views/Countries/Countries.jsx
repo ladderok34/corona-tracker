@@ -7,15 +7,15 @@ import React, {
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { useActions } from 'reduxHooks/useActions';
 import { getSearchQuery, getSortingOption } from 'selectors/countriesOptions';
 import { getCountriesCases } from 'selectors/cases';
-import { useActions } from 'reduxHooks/useActions';
 import { resetSearch } from 'actions/countriesOptions';
+import CountriesList from 'components/CountriesList/CountriesList';
+import Container from 'components/Container/Container';
 import { findCountriesByName, sortCountries, remapCountries } from './Countries.utils';
 import Header from './components/Header/Header';
 import NoResults from './components/NoResults/NoResults';
-import CountriesList from 'components/CountriesList/CountriesList';
-import Container from 'components/Container/Container';
 
 const countriesToRenderPerScroll = 50;
 
