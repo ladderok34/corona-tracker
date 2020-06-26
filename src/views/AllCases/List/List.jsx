@@ -7,7 +7,6 @@ import {
     Body,
     Right,
     Badge,
-    Icon,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity } from 'react-native';
@@ -17,17 +16,13 @@ const styles = StyleSheet.create({
     badge: {
         width: 110,
     },
-    arrow: {
-        color: '#62B1F6',
-    },
 });
 
-const List = ({ cases, navigateToCase }) => (
+const List = ({ cases }) => (
     <NativeBaseList>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('total'); }}
         >
             <Left>
                 <Badge style={styles.badge} info>
@@ -38,17 +33,11 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>Total</Text>
                 <Text note numberOfLines={1}>Total confirmed cases</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('deaths'); }}
         >
             <Left>
                 <Badge style={styles.badge} error>
@@ -59,17 +48,11 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>Deaths</Text>
                 <Text note numberOfLines={1}>Total confirmed deaths</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('recovered'); }}
         >
             <Left>
                 <Badge style={styles.badge} success>
@@ -80,17 +63,11 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>Recovered</Text>
                 <Text note numberOfLines={1}>Total recovered</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('new-confirmed'); }}
         >
             <Left>
                 <Badge style={styles.badge} warning>
@@ -101,17 +78,11 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>New Cases</Text>
                 <Text note numberOfLines={1}>New confirmed cases</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('new-deaths'); }}
         >
             <Left>
                 <Badge style={styles.badge} danger>
@@ -122,17 +93,11 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>New Deaths</Text>
                 <Text note numberOfLines={1}>New confirmed deaths</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
         <ListItem
             thumbnail
             style={styles.listItem}
-            onPress={() => { navigateToCase('new-recovered'); }}
         >
             <Left>
                 <Badge style={styles.badge} success>
@@ -143,19 +108,13 @@ const List = ({ cases, navigateToCase }) => (
                 <Text>New Recovered</Text>
                 <Text note numberOfLines={1}>New NewRecovered</Text>
             </Body>
-            <Right>
-                <Icon
-                    name="arrow-forward"
-                    style={styles.arrow}
-                />
-            </Right>
+            <Right />
         </ListItem>
     </NativeBaseList>
 );
 
 List.propTypes = {
     cases: PropTypes.object.isRequired,
-    navigateToCase: PropTypes.func.isRequired,
 };
 
 List.displayName = 'List';

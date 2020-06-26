@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AllCases from 'views/AllCases/AllCases';
-import Case from 'views/Case/Case';
 import Countries from 'views/Countries/Countries';
 import Country from 'views/Country/Country';
 import Favorites from 'views/Favorites/Favorites';
@@ -25,27 +24,6 @@ const CountriesNavigation = () => (
             name="Country"
             component={Country}
             options={{ headerShown: false }}
-        />
-    </Stack.Navigator>
-);
-
-const AllCasesNavigation = () => (
-    <Stack.Navigator>
-        <Stack.Screen
-            name="All Cases"
-            component={AllCases}
-            options={{ headerShown: false }}
-        />
-        <Stack.Screen
-            name="Case"
-            component={Case}
-            options={({ route }) => {
-                const { name } = route.params;
-                let title = name.replace(/-/g, ' ');
-                title = title.charAt(0).toUpperCase() + title.slice(1);
-
-                return { title };
-            }}
         />
     </Stack.Navigator>
 );
@@ -71,8 +49,8 @@ const Covid = () => (
             <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen
                     name="All cases"
-                    component={AllCasesNavigation}
-                    options={{ title: 'All cases' }}
+                    component={AllCases}
+                    options={{ title: 'All cases', headerShown: false }}
                 />
                 <Drawer.Screen
                     name="Countries"

@@ -70,6 +70,7 @@ const Country = () => {
         }
     }, [country]);
 
+    // Todo: Add loading spinner
     if (!Object.keys(country).length) {
         return null;
     }

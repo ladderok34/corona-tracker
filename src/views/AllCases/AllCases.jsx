@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import {
     getIsCasesLoaded,
     getIsCasesError,
@@ -13,7 +12,6 @@ import Container from 'components/Container/Container';
 import List from './List/List';
 
 const AllCases = () => {
-    const navigation = useNavigation();
     const fetchCasesDispatch = useActions(fetchCases);
 
     const {
@@ -30,10 +28,6 @@ const AllCases = () => {
         fetchCasesDispatch();
     }, []);
 
-    const navigateToCase = useCallback((name) => {
-        navigation.navigate('Case', { name });
-    }, []);
-
     return (
         <Container
             isLoaded={isLoaded}
@@ -43,10 +37,7 @@ const AllCases = () => {
             centered={isError || !isLoaded}
         >
             {Object.keys(totalCases).length > 0 && (
-                <List
-                    cases={totalCases}
-                    navigateToCase={navigateToCase}
-                />
+                <List cases={totalCases} />
             )}
         </Container>
     );
