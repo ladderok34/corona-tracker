@@ -59,7 +59,7 @@ const Country = () => {
         } else {
             addToFavoritesDispatch(country.countryCode);
         }
-    }, [inFavorites]);
+    }, [inFavorites, country]);
 
     const onTabChange = useCallback((heading) => {
         if (heading === 'Total') {
