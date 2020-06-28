@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import {
     Header as NativeBaseHeader,
     Title,
@@ -33,30 +34,32 @@ const Header = ({
     favoritesOnPress,
     goBack,
 }) => (
-    <NativeBaseHeader style={styles.header}>
-        <Left>
-            <Button
-                transparent
-                onPress={goBack}
-            >
-                <Icon name="arrow-back" />
-            </Button>
-        </Left>
-        <Title>
-            {getUnicodeFlagIcon(countryCode)} {countryName}
-        </Title>
-        <Right>
-            <Button
-                transparent
-                onPress={favoritesOnPress}
-            >
-                <Icon
-                    name="star"
-                    style={inFavorites ? styles.inFavorites : styles.notInFavorites}
-                />
-            </Button>
-        </Right>
-    </NativeBaseHeader>
+    <ErrorBoundary>
+        <NativeBaseHeader style={styles.header}>
+            <Left>
+                <Button
+                    transparent
+                    onPress={goBack}
+                >
+                    <Icon name="arrow-back" />
+                </Button>
+            </Left>
+            <Title>
+                {getUnicodeFlagIcon(countryCode)} {countryName}
+            </Title>
+            <Right>
+                <Button
+                    transparent
+                    onPress={favoritesOnPress}
+                >
+                    <Icon
+                        name="star"
+                        style={inFavorites ? styles.inFavorites : styles.notInFavorites}
+                    />
+                </Button>
+            </Right>
+        </NativeBaseHeader>
+    </ErrorBoundary>
 );
 
 Header.propTypes = {

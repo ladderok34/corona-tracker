@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import {
     Header,
     Title,
@@ -18,20 +19,22 @@ const DefaultHeader = ({ title, ...props }) => {
     }, []);
 
     return (
-        <Header {...props}>
-            <Left>
-                <Button
-                    transparent
-                    onPress={openDrawer}
-                >
-                    <Icon name='menu' />
-                </Button>
-            </Left>
-            <Body>
-                <Title>{title}</Title>
-            </Body>
-            <Right />
-        </Header>
+        <ErrorBoundary>
+            <Header {...props}>
+                <Left>
+                    <Button
+                        transparent
+                        onPress={openDrawer}
+                    >
+                        <Icon name='menu' />
+                    </Button>
+                </Left>
+                <Body>
+                    <Title>{title}</Title>
+                </Body>
+                <Right />
+            </Header>
+        </ErrorBoundary>
     );
 };
 

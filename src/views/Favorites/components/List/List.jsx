@@ -10,6 +10,7 @@ import {
     Right,
     Badge,
 } from 'native-base';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import { StyleSheet } from 'react-native';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
@@ -24,44 +25,46 @@ const List = ({
     countryNames,
     navigateToCountry,
 }) => (
-    <NativeBaseList>
-        {countries.map((country) => {
-            const currentCountry = countryNames.find(item => item.name === country.Country);
+    <ErrorBoundary>
+        <NativeBaseList>
+            {countries.map((country) => {
+                const currentCountry = countryNames.find(item => item.name === country.Country);
 
-            if (typeof currentCountry === 'undefined') {
-                return null;
-            }
+                if (typeof currentCountry === 'undefined') {
+                    return null;
+                }
 
-            return (
-                <ListItem
-                    key={country.Country}
-                    onPress={() => { navigateToCountry(country.Country, currentCountry.code); }}
-                >
-                    <Left>
-                        <Text>{getUnicodeFlagIcon(currentCountry.code)}</Text>
-                        <Text>{country.Country}</Text>
-                    </Left>
-                    <Body>
-                        <Badge warning style={styles.badge}>
-                            <Text>{country.Confirmed} Total</Text>
-                        </Badge>
-                        <Badge style={styles.badge}>
-                            <Text>{country.Deaths} Death</Text>
-                        </Badge>
-                        <Badge success style={styles.badge}>
-                            <Text>{country.Recovered} Recovered</Text>
-                        </Badge>
-                        <Badge info>
-                            <Text>{country.Confirmed - (country.Recovered + country.Deaths)} Remaining</Text>
-                        </Badge>
-                    </Body>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </ListItem>
-            );
-        })}
-    </NativeBaseList>
+                return (
+                    <ListItem
+                        key={country.Country}
+                        onPress={() => { navigateToCountry(country.Country, currentCountry.code); }}
+                    >
+                        <Left>
+                            <Text>{getUnicodeFlagIcon(currentCountry.code)}</Text>
+                            <Text>{country.Country}</Text>
+                        </Left>
+                        <Body>
+                            <Badge warning style={styles.badge}>
+                                <Text>{country.Confirmed} Total</Text>
+                            </Badge>
+                            <Badge style={styles.badge}>
+                                <Text>{country.Deaths} Death</Text>
+                            </Badge>
+                            <Badge success style={styles.badge}>
+                                <Text>{country.Recovered} Recovered</Text>
+                            </Badge>
+                            <Badge info>
+                                <Text>{country.Confirmed - (country.Recovered + country.Deaths)} Remaining</Text>
+                            </Badge>
+                        </Body>
+                        <Right>
+                            <Icon name="arrow-forward" />
+                        </Right>
+                    </ListItem>
+                );
+            })}
+        </NativeBaseList>
+    </ErrorBoundary>
 );
 
 List.propTypes = {

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button } from 'native-base';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 
 const styles = StyleSheet.create({
     view: {
@@ -24,14 +25,16 @@ const styles = StyleSheet.create({
 });
 
 const NoResults = ({ searchQuery, resetSearch }) => (
-    <View style={styles.view}>
-        <Text style={styles.text}>
-            No results found for <Text style={styles.textBold}>{`"${searchQuery}"`}</Text>
-        </Text>
-        <Button block onPress={resetSearch} style={styles.button}>
-            <Text>Reset search</Text>
-        </Button>
-    </View>
+    <ErrorBoundary>
+        <View style={styles.view}>
+            <Text style={styles.text}>
+                No results found for <Text style={styles.textBold}>{`"${searchQuery}"`}</Text>
+            </Text>
+            <Button block onPress={resetSearch} style={styles.button}>
+                <Text>Reset search</Text>
+            </Button>
+        </View>
+    </ErrorBoundary>
 );
 
 NoResults.propTypes = {

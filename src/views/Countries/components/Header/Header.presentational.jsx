@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import PropTypes from 'prop-types';
 import {
     Header,
@@ -15,7 +16,7 @@ const HeaderPresentational = ({
     onSearchChange,
     onSortingChange,
 }) => (
-    <>
+    <ErrorBoundary>
         <DefaultHeader title="Countries" />
         <Header searchBar rounded>
             <Picker
@@ -43,7 +44,7 @@ const HeaderPresentational = ({
                 />
             </Item>
         </Header>
-    </>
+    </ErrorBoundary>
 );
 
 HeaderPresentational.propTypes = {

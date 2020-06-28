@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container as NativeBaseContainer, Content } from 'native-base';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import LoadingFailed from 'components/LoadingFailed/LoadingFailed';
 
 const styles = StyleSheet.create({
@@ -21,17 +22,19 @@ const Container = ({
     refetch,
     centered,
 }) => (
-    <NativeBaseContainer>
-        {header && header}
-        {tabs && tabs}
-        <View
-            style={centered ? styles.centered : {}}
-        >
-            {isError && <LoadingFailed refetch={refetch} />}
-            {!isLoaded && <ActivityIndicator size="large" />}
-            {children && children}
-        </View>
-    </NativeBaseContainer>
+    <ErrorBoundary>
+        <NativeBaseContainer>
+            {header && header}
+            {tabs && tabs}
+            <View
+                style={centered ? styles.centered : {}}
+            >
+                {isError && <LoadingFailed refetch={refetch} />}
+                {!isLoaded && <ActivityIndicator size="large" />}
+                {children && children}
+            </View>
+        </NativeBaseContainer>
+    </ErrorBoundary>
 );
 
 Container.propTypes = {
