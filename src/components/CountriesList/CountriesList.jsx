@@ -4,7 +4,6 @@ import {
     FlatList,
     View,
     TouchableOpacity,
-    ActivityIndicator,
     StyleSheet,
 } from 'react-native';
 import { Text, Icon, Badge } from 'native-base';

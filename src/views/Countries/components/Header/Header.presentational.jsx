@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Header,
-    Text,
-    Body,
     Picker,
     Icon,
     Item,
     Input,
-    Container,
 } from 'native-base';
 import DefaultHeader from 'components/DefaultHeader/DefaultHeader';
 

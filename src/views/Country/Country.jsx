@@ -12,7 +12,6 @@ import { useActions } from 'reduxHooks/useActions';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Container from 'components/Container/Container';
 import Header from './components/Header/Header';
-import api from 'api/api';
 import Tabs from './components/Tabs/Tabs';
 import { setDateRequestParams } from './Country.utils';
 
@@ -70,7 +69,6 @@ const Country = () => {
         }
     }, [country]);
 
-    // Todo: Add loading spinner
     if (!Object.keys(country).length) {
         return null;
     }

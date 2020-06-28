@@ -9,4 +9,3 @@ export const setDateRequestParams = () => {
         to: formatDate(to),
     };
 };
-

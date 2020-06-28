@@ -43,7 +43,7 @@ const FavoritesNavigation = () => (
     </Stack.Navigator>
 );
 
-const Covid = () => (
+const CoronaTracker = () => (
     <Provider store={store}>
         <NavigationContainer>
             <Drawer.Navigator initialRouteName="Home">
@@ -65,4 +65,4 @@ const Covid = () => (
     </Provider>
 );
 
-export default Covid;
+export default CoronaTracker;

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    Tab as NativeBaseTab,
-    Tabs as NativeBaseTabs,
-} from 'native-base';
+import { Tab as NativeBaseTab, Tabs as NativeBaseTabs } from 'native-base';
 import Tab from '../Tab/Tab';
 
 const Tabs = ({ data, onTabChange }) => (

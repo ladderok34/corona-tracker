@@ -7,10 +7,7 @@ import {
     Left,
     Right,
     Body,
-    Content,
     Badge,
-    View,
-    Button,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { prettifyNumber } from 'utils';

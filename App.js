@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { AppLoading } from 'expo';
+import React, { useEffect } from 'react';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import CoronaTracker from './src/CoronaTracker';
