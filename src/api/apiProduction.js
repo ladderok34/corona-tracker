@@ -1,4 +1,4 @@
-import apiWrapper from './apiWrapper';
+import apiWrapper from './apiWrapper'
 
-export const getSummary = () => apiWrapper.get('/summary');
-export const getCountry = (params) => apiWrapper.get(`/total/country/${params}`);
+export const getSummary = () => apiWrapper.get('/summary')
+export const getCountry = (params) => apiWrapper.get(`/total/country/${params}`)

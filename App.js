@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
-import CoronaTracker from './src/CoronaTracker';
+import React, { useEffect } from 'react'
+import * as Font from 'expo-font'
+import { Ionicons } from '@expo/vector-icons'
+import CoronaTracker from './src/CoronaTracker'
 
 const App = () => {
-    const loadFonts = async () => {
-        await Font.loadAsync({
-            Roboto: require('native-base/Fonts/Roboto.ttf'),
-            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-            ...Ionicons.font,
-        });
-    };
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      ...Ionicons.font,
+    })
+  }
 
-    useEffect(() => {
-        loadFonts();
-    }, []);
+  useEffect(() => {
+    loadFonts()
+  }, [])
 
-    return <CoronaTracker />;
-};
+  return <CoronaTracker />
+}
 
-export default App;
+export default App

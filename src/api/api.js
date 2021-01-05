@@ -1,13 +1,13 @@
-import * as apiDev from './apiDev';
-import * as apiProduction from './apiProduction';
+import * as apiDev from './apiDev'
+import * as apiProduction from './apiProduction'
 
-const { NODE_ENV } = process.env;
-let api;
+const { NODE_ENV } = process.env
+let api
 
 if (NODE_ENV === 'development') {
-    api = apiDev;
+  api = apiDev
 } else {
-    api = apiProduction;
+  api = apiProduction
 }
 
-export default api;
+export default api
